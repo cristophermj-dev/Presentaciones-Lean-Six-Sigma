@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Semana 1: Lean Six Sigma - White & Yellow Belt | UNED</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css" id="theme">
+
+  <!-- Iconos FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tipografía Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --uned-blue: #003366;
+      --uned-cyan: #008080;
+      --accent-red: #d9534f;
+      --light-bg: #f8f9fa;
+      --card-border: #e2e8f0;
+    }
+    .reveal {
+      font-family: 'Montserrat', sans-serif;
+      color: #2d3748;
+    }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--uned-blue);
+      text-transform: none;
+      font-weight: 800;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    .reveal h2 { font-size: 1.8em; }
+    .reveal h3 { font-size: 1.35em; }
+    .reveal h4 { font-size: 1.05em; }
+
+    /* Ajuste responsivo de cada diapositiva para evitar recortes verticales */
+    .reveal .slides section {
+      box-sizing: border-box;
+      padding: 15px 30px !important;
+      max-height: 100%;
+      overflow-y: auto !important;
+    }
+    .reveal .slides section::-webkit-scrollbar {
+      width: 5px;
+    }
+    .reveal .slides section::-webkit-scrollbar-thumb {
+      background: rgba(0, 51, 102, 0.25);
+      border-radius: 4px;
+    }
+
+    /* Portada Hero */
+    .hero-slide {
+      background: linear-gradient(rgba(0, 51, 102, 0.88), rgba(0, 128, 128, 0.88)), 
+                  url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+      color: white !important;
+      border-radius: 12px;
+      padding: 30px !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .hero-slide h2, .hero-slide h4 { color: white; }
+
+    /* Layout en dos columnas */
+    .col-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .col-2-text { text-align: left; font-size: 0.72em; }
+
+    /* Tarjetas de Desperdicios */
+    .waste-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+      font-size: 0.68em;
+      text-align: left;
+    }
+    .waste-card {
+      background: var(--light-bg);
+      border-radius: 8px;
+      padding: 12px 14px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+    }
+    .waste-card.mfg { border-top: 4px solid #2b6cb0; }
+    .waste-card.svc { border-top: 4px solid var(--uned-cyan); }
+    .waste-card h5 {
+      margin-top: 0;
+      margin-bottom: 6px;
+      font-size: 1.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .waste-card ul {
+      margin: 4px 0 0 16px;
+      padding: 0;
+    }
+    .waste-card li {
+      margin-bottom: 5px;
+      line-height: 1.35;
+    }
+
+    /* Caja de Contramedida / Solución */
+    .solution-box {
+      background: #eef9f8;
+      border-left: 4px solid var(--uned-cyan);
+      padding: 8px 14px;
+      margin-top: 10px;
+      font-size: 0.64em;
+      text-align: left;
+      border-radius: 0 6px 6px 0;
+    }
+
+    /* Cajas destacadas */
+    .highlight-box {
+      background: #f0f4f8;
+      border-left: 4px solid var(--uned-blue);
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 0.72em;
+      text-align: left;
+      margin: 8px 0;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.48em;
+      color: white;
+      background: var(--uned-cyan);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .waste-number {
+      font-size: 0.42em;
+      color: var(--accent-red);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .image-rounded {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      max-height: 290px;
+      width: 100%;
+      object-fit: cover;
+    }
+    table.custom-table {
+      width: 100%;
+      font-size: 0.60em;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    table.custom-table th {
+      background: var(--uned-blue);
+      color: white;
+      padding: 7px 10px;
+    }
+    table.custom-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ==================== BLOQUE 1: INTRODUCCIÓN Y CONTEXTO ==================== -->
+
+      <!-- Slide 1: Portada (Versión limpia original) -->
+      <section>
+        <div class="hero-slide">
+          <span class="badge">UNED · Escuela de Ciencias de la Administración</span>
+          <br><br>
+          <h2 style="font-size: 2.1em;">Lean Six Sigma</h2>
+          <h4 style="font-weight: 400; color: #b2ebf2;">Certificación White & Yellow Belt</h4>
+          <hr style="border-color: rgba(255,255,255,0.25); margin: 20px 0;">
+          <p style="font-size: 0.8em; margin: 0;">
+            <i class="fa-solid fa-graduation-cap"></i> <strong>Semana 1:</strong> Fundamentos LSS y los 8 Desperdicios (Muda)<br>
+            <i class="fa-solid fa-users-gear"></i> Cátedra de Producción | Carrera de Administración con énfasis en Operaciones
+          </p>
+        </div>
+        <aside class="notes">
+          [Min 0 - 5]
+          Bienvenida formal a los participantes.
+          Presentar la visión del curso: resolver problemas operativos reales y generar ahorros medibles en organizaciones públicas y privadas.
+        </aside>
+      </section>
+
+      <!-- Slide 2: Diagnóstico Rápido -->
+      <section>
+        <h3><i class="fa-solid fa-comments" style="color: var(--uned-cyan);"></i> Diagnóstico Rápido: Fricciones del Día a Día</h3>
+        <p style="font-size: 0.72em; text-align: left;">
+          Piensa en tu trabajo actual o en tu última interacción como cliente con un servicio público, bancario o médico.
+        </p>
+        <div class="highlight-box fragment">
+          <strong>Pregunta para la clase (Participación activa):</strong><br>
+          ¿Cuál fue el mayor obstáculo con el que te topaste? ¿Tiempos muertos esperando una firma, tener que llenar el mismo documento dos veces o recibir un trabajo con errores?
+        </div>
+        <p class="fragment" style="font-size: 0.68em; color: var(--uned-blue); font-weight: 600; text-align: left; margin-top: 12px;">
+          <i class="fa-solid fa-arrow-right"></i> Casi todos los dolores cotidianos tienen un nombre en Lean: <strong>Desperdicio (Muda)</strong>.
+        </p>
+        <aside class="notes">
+          [Min 5 - 15]
+          Pedir a 2 o 3 estudiantes que compartan su experiencia por micrófono.
+          Anotar mentalmente sus ejemplos (burocracia, colas, reprocesos) para contrastarlos al explicar cada desperdicio.
+        </aside>
+      </section>
+
+      <!-- Slide 3: Estructura del Curso -->
+      <section>
+        <h3>Estructura del Curso y Evaluación</h3>
+        <p style="font-size: 0.68em;">Modalidad virtual: 4 semanas (8 horas sincrónicas + 12 horas asincrónicas)</p>
+
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Componente Evaluativo</th>
+              <th>Detalle Operativo</th>
+              <th>Ponderación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="fragment">
+              <td><strong>Asistencia y Participación Activa</strong></td>
+              <td>Puntualidad en sesiones virtuales y participación en debates</td>
+              <td>20%</td>
+            </tr>
+            <tr class="fragment">
+              <td><strong>Resolución de Casos en Subgrupos</strong></td>
+              <td>Casos prácticos semanales desarrollados colaborativamente en Classroom</td>
+              <td>30%</td>
+            </tr>
+            <tr class="fragment" style="background: #eef4f8;">
+              <td><strong>Examen Final de Certificación</strong></td>
+              <td>Evaluación individual teórico-práctica en Semana 4</td>
+              <td><strong>50%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="highlight-box fragment" style="margin-top: 10px; font-size: 0.62em;">
+          <strong>Criterio de Aprobación Yellow Belt:</strong> Asistencia mínima del 85%, entrega de todos los casos grupales y nota mínima de <strong>80/100</strong> tanto global como en el examen final.
+        </div>
+        <aside class="notes">
+          [Min 15 - 20]
+          Aclarar las reglas del juego.
+          Los casos prácticos semanales representan el 30% y preparan de manera directa para el examen final del 50%.
+        </aside>
+      </section>
+
+      <!-- ==================== BLOQUE 2: FUNDAMENTOS LEAN & SIX SIGMA ==================== -->
+
+      <!-- Slide 4: Fusión de Dos Enfoques -->
+      <section>
+        <h3>La Fusión de Dos Enfoques Complementarios</h3>
+        <div class="col-2" style="margin-top: 15px;">
+          <div class="waste-card mfg fragment">
+            <h5 style="color: #2b6cb0;"><i class="fa-solid fa-bolt"></i> LEAN MANUFACTURING</h5>
+            <p><strong>Origen:</strong> Toyota Production System (TPS), Japón (años 50).</p>
+            <p><strong>Objetivo:</strong> Maximizar la velocidad del flujo y eliminar actividades sin valor añadido (Muda).</p>
+            <p style="font-style: italic;">"Hacer fluir el proceso con el menor tiempo de ciclo posible."</p>
+          </div>
+          <div class="waste-card svc fragment">
+            <h5 style="color: var(--uned-cyan);"><i class="fa-solid fa-chart-line"></i> SIX SIGMA</h5>
+            <p><strong>Origen:</strong> Motorola y General Electric, EE.UU. (años 80).</p>
+            <p><strong>Objetivo:</strong> Reducir la variabilidad y estabilizar los procesos para erradicar defectos.</p>
+            <p style="font-style: italic;">"Basarse en datos estadísticos para alcanzar consistencia total."</p>
+          </div>
+        </div>
+        <div class="highlight-box fragment" style="margin-top: 12px; font-size: 0.66em; text-align: center;">
+          <strong>Lean Six Sigma:</strong> Procesos veloces (Lean) + Resultados consistentes y libres de fallas (Six Sigma).
+        </div>
+        <aside class="notes">
+          [Min 20 - 30]
+          Explicar que Lean sin Six Sigma produce procesos rápidos pero con fallas imprevistas. Six Sigma sin Lean produce procesos controlados pero lentos.
+          Juntos forman el estándar global de excelencia operacional.
+        </aside>
+      </section>
+
+      <!-- Slide 5: Definición de Valor -->
+      <section>
+        <h3>El Concepto Medular: ¿Qué es Valor?</h3>
+        <div class="col-2">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="image-rounded" alt="Valor y Cliente">
+          <div class="col-2-text">
+            <p>En Lean, el <strong>Valor</strong> lo define exclusivamente el cliente final.</p>
+            <p>Una tarea tiene <strong>Valor Añadido (VA)</strong> si cumple 3 condiciones simultáneas:</p>
+            <ul style="line-height: 1.45;">
+              <li class="fragment"><strong>1. El cliente está dispuesto a pagar por ella.</strong></li>
+              <li class="fragment"><strong>2. Transforma físicamente o en información</strong> el producto o servicio.</li>
+              <li class="fragment"><strong>3. Se realiza correctamente a la primera vez.</strong></li>
+            </ul>
+            <div class="solution-box fragment">
+              <strong>Muda Necesaria (NVA-N):</strong> Tareas que no agregan valor directo pero son obligatorias por normativa legal o auditoría (ej. contabilidad fiscal). Deben minimizarse.
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 30 - 38]
+          Preguntar si auditar un expediente agrega valor. Respuesta: No, el cliente asume que ya fue bien hecho. Es No Valor Añadido Necesario.
+        </aside>
+      </section>
+
+      <!-- Slide 6: Escala Completa de Sigma (1σ a 6σ) -->
+      <section>
+        <h3>Midiendo la Variabilidad: Escala de Niveles Sigma</h3>
+        <p style="font-size: 0.68em;">Métrica universal: DPMO (Defectos Por Millón de Oportunidades)</p>
+
+        <table class="custom-table" style="text-align: center;">
+          <thead>
+            <tr>
+              <th>Nivel Sigma</th>
+              <th>DPMO</th>
+              <th>Rendimiento (Yield)</th>
+              <th>Impacto y Equivalente Operacional</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="fragment" style="background: #fff5f5;">
+              <td><strong>1σ</strong></td>
+              <td>691,462</td>
+              <td>30.85%</td>
+              <td>Proceso totalmente fuera de control; pérdidas masivas de clientes</td>
+            </tr>
+            <tr class="fragment">
+              <td><strong>2σ</strong></td>
+              <td>308,537</td>
+              <td>69.15%</td>
+              <td>Pérdida habitual de correspondencia o citas médicas postergadas</td>
+            </tr>
+            <tr class="fragment">
+              <td><strong>3σ</strong></td>
+              <td>66,807</td>
+              <td>93.32%</td>
+              <td>Promedio habitual en empresas y trámites tradicionales</td>
+            </tr>
+            <tr class="fragment">
+              <td><strong>4σ</strong></td>
+              <td>6,210</td>
+              <td>99.38%</td>
+              <td>Nivel competitivo regular aceptable en la industria</td>
+            </tr>
+            <tr class="fragment" style="background: #f0fff4;">
+              <td><strong>5σ</strong></td>
+              <td>233</td>
+              <td>99.977%</td>
+              <td>Nivel de clase mundial (industria farmacéutica y automotriz avanzada)</td>
+            </tr>
+            <tr class="fragment" style="background: #e6fffa; font-weight: 700;">
+              <td><strong>6σ</strong></td>
+              <td>3.4</td>
+              <td>99.99966%</td>
+              <td>Seguridad en aterrizajes de aviación comercial (perfección práctica)</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="notes">
+          [Min 38 - 45]
+          1 Sigma representa casi un 70% de desperdicio y quejas (proceso no viable).
+          5 Sigma es el estándar donde operan empresas multinacionales líderes de tecnología médica o automotriz.
+          6 Sigma es la referencia de control estricto donde fallar cuesta vidas humanas.
+        </aside>
+      </section>
+
+      <!-- ==================== BLOQUE 3: LOS 8 DESPERDICIOS ==================== -->
+
+      <!-- Slide 7: Desperdicio 1 - Sobreproducción -->
+      <section>
+        <span class="waste-number">Desperdicio #1 (Muda)</span>
+        <h3>Sobreproducción</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Hacer más, antes o más rápido de lo requerido por la siguiente etapa o el cliente. Es el <strong>peor de todos los desperdicios</strong> porque oculta las fallas de todo el sistema.
+        </p>
+
+        <div class="waste-comparison">
+          <div class="waste-card mfg">
+            <h5><i class="fa-solid fa-industry"></i> En Manufactura</h5>
+            <ul>
+              <li>Fabricar lotes masivos para no tener la maquinaria inactiva.</li>
+              <li>Mantener almacenes saturados de producto sin pedidos confirmados.</li>
+            </ul>
+          </div>
+          <div class="waste-card svc">
+            <h5><i class="fa-solid fa-briefcase"></i> En Servicios / Oficina</h5>
+            <ul>
+              <li>Imprimir 80 folletos para una reunión donde asistirán 15 personas.</li>
+              <li>Generar reportes densos con datos que nadie consulta.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="solution-box fragment">
+          <strong>¿Cómo eliminarlo?</strong> Implementar producción Justo a Tiempo (JIT), sincronización Pull y tarjetas de control visual (Kanban).
+        </div>
+        <aside class="notes">
+          [Min 45 - 51]
+          Taiichi Ohno lo consideraba el peor: requiere comprar materia prima antes de tiempo, moverla, almacenarla y asegurar bodegas.
+        </aside>
+      </section>
+
+      <!-- Slide 8: Desperdicio 2 - Espera -->
+      <section>
+        <span class="waste-number">Desperdicio #2 (Muda)</span>
+        <h3>Tiempos de Espera</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Tiempo inactivo en el que operarios, maquinaria o usuarios están detenidos aguardando insumos, firmas o aprobaciones.
+        </p>
+
+        <div class="waste-comparison">
+          <div class="waste-card mfg">
+            <h5><i class="fa-solid fa-industry"></i> En Manufactura</h5>
+            <ul>
+              <li>Operarios inactivos esperando que llegue la materia prima a su estación.</li>
+              <li>Líneas paradas por averías mecánicas no programadas.</li>
+            </ul>
+          </div>
+          <div class="waste-card svc">
+            <h5><i class="fa-solid fa-briefcase"></i> En Servicios / Oficina</h5>
+            <ul>
+              <li>Expedientes archivados en bandejas esperando firma de jefatura.</li>
+              <li>Clientes esperando 40 minutos en sala tras su hora fijada.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="solution-box fragment">
+          <strong>¿Cómo eliminarlo?</strong> Balanceo de cargas de trabajo, delegación de aprobaciones y mantenimiento productivo total (TPM).
+        </div>
+        <aside class="notes">
+          [Min 51 - 57]
+          En la espera el tiempo corre y los costos fijos se acumulan, pero el servicio no avanza.
+        </aside>
+      </section>
+
+      <!-- Slide 9: Desperdicio 3 - Transporte -->
+      <section>
+        <span class="waste-number">Desperdicio #3 (Muda)</span>
+        <h3>Transporte Innecesario</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Mover materiales, materias primas o carpetas físicas de un lugar a otro sin que agregue valor ni transforme el producto.
+        </p>
+
+        <div class="waste-comparison">
+          <div class="waste-card mfg">
+            <h5><i class="fa-solid fa-industry"></i> En Manufactura</h5>
+            <ul>
+              <li>Llevar partes en montacargas a una bodega lejana para luego traerlas.</li>
+              <li>Pasillos de traslado excesivamente largos entre estaciones continuas.</li>
+            </ul>
+          </div>
+          <div class="waste-card svc">
+            <h5><i class="fa-solid fa-briefcase"></i> En Servicios / Oficina</h5>
+            <ul>
+              <li>Subir y bajar carpetas físicas entre diferentes pisos y edificios.</li>
+              <li>Enviar oficios por mensajería interna únicamente para obtener sellos.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="solution-box fragment">
+          <strong>¿Cómo eliminarlo?</strong> Reconfigurar la distribución de planta (Layout celular en "U") y digitalizar la gestión documental.
+        </div>
+        <aside class="notes">
+          [Min 57 - 63]
+          Diferencia: Transporte mueve materiales o documentos; Movimiento desplaza al personal.
+        </aside>
+      </section>
+
+      <!-- Slide 10: Desperdicio 4 - Sobreprocesamiento -->
+      <section>
+        <span class="waste-number">Desperdicio #4 (Muda)</span>
+        <h3>Sobreprocesamiento</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Ejecutar tareas, revisiones o acabados más allá de las especificaciones requeridas por el cliente o la funcionalidad del producto.
+        </p>
+
+        <div class="waste-comparison">
+          <div class="waste-card mfg">
+            <h5><i class="fa-solid fa-industry"></i> En Manufactura</h5>
+            <ul>
+              <li>Pintar o pulir partes internas de componentes mecánicos que van ocultos.</li>
+              <li>Ajustar tolerancias mecánicas más estrictas de lo que requiere el diseño.</li>
+            </ul>
+          </div>
+          <div class="waste-card svc">
+            <h5><i class="fa-solid fa-briefcase"></i> En Servicios / Oficina</h5>
+            <ul>
+              <li>Exigir que un formulario físico sea transcrito manualmente al sistema ERP.</li>
+              <li>Requerir 4 firmas distintas para aprobar la compra de papelería básica.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="solution-box fragment">
+          <strong>¿Cómo eliminarlo?</strong> Estandarización de procesos, mapeo de flujo de valor (VSM) y análisis riguroso de la Voz del Cliente (VOC).
+        </div>
+        <aside class="notes">
+          [Min 63 - 69]
+          Llamar la atención sobre el perfeccionismo innecesario que consume horas de trabajo que nadie paga.
+        </aside>
+      </section>
+
+      <!-- Slide 11: Desperdicio 5 - Inventario -->
+      <section>
+        <span class="waste-number">Desperdicio #5 (Muda)</span>
+        <h3>Exceso de Inventario</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Cualquier acumulación de suministros, producto en proceso (WIP) o producto terminado que exceda lo necesario para el flujo continuo.
+        </p>
+
+        <div class="waste-comparison">
+          <div class="waste-card mfg">
+            <h5><i class="fa-solid fa-industry"></i> En Manufactura</h5>
+            <ul>
+              <li>Suministro de materia prima equivalente a meses ocupando pasillos.</li>
+              <li>Pilas de piezas intermedias acumuladas esperando entrar a pintura.</li>
+            </ul>
+          </div>
+          <div class="waste-card svc">
+            <h5><i class="fa-solid fa-briefcase"></i> En Servicios / Oficina</h5>
+            <ul>
+              <li>Bandejas con cientos de correos o solicitudes sin procesar.</li>
+              <li>Expedientes físicos archivados acumulando polvo a la espera de trámite.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="solution-box fragment">
+          <strong>¿Cómo eliminarlo?</strong> Reducción del tamaño de lotes, auditorías 5S y límites estrictos de trabajo en proceso (Límites WIP).
+        </div>
+        <aside class="notes">
+          [Min 69 - 75]
+          Analogía del mar de inventario: oculta las rocas (fallas de calidad y averías). Al bajar el nivel, los problemas reales se hacen visibles.
+        </aside>
+      </section>
+
+      <!-- Slide 12: Desperdicio 6 - Movimiento -->
+      <section>
+        <span class="waste-number">Desperdicio #6 (Muda)</span>
+        <h3>Movimientos Innecesarios</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Desplazamientos corporales, flexiones o caminatas que debe hacer el personal debido a una estación de trabajo desordenada o mal diseñada.
+        </p>
+
+        <div class="waste-comparison">
+          <div class="waste-card mfg">
+            <h5><i class="fa-solid fa-industry"></i> En Manufactura</h5>
+            <ul>
+              <li>Caminar 20 metros para buscar una llave o herramienta dejada en otro banco.</li>
+              <li>Agacharse repetidamente para levantar piezas pesadas del suelo.</li>
+            </ul>
+          </div>
+          <div class="waste-card svc">
+            <h5><i class="fa-solid fa-briefcase"></i> En Servicios / Oficina</h5>
+            <ul>
+              <li>Tener la fotocopiadora o archivo en el extremo opuesto del edificio.</li>
+              <li>Alternar entre múltiples programas y pantallas para completar un registro.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="solution-box fragment">
+          <strong>¿Cómo eliminarlo?</strong> Implementación de 5S (orden y delimitación de puestos) y diseño ergonómico de estaciones.
+        </div>
+        <aside class="notes">
+          [Min 75 - 81]
+          El movimiento fatiga al trabajador y causa lesiones sin agregar valor al producto o servicio.
+        </aside>
+      </section>
+
+      <!-- Slide 13: Desperdicio 7 - Defectos -->
+      <section>
+        <span class="waste-number">Desperdicio #7 (Muda)</span>
+        <h3>Defectos y Reprocesos</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Servicios o piezas que no cumplen con los requisitos de calidad y exigen corrección, desperdicio de insumos o reposición.
+        </p>
+
+        <div class="waste-comparison">
+          <div class="waste-card mfg">
+            <h5><i class="fa-solid fa-industry"></i> En Manufactura</h5>
+            <ul>
+              <li>Piezas plásticas con deformaciones que deben ser pulidas nuevamente.</li>
+              <li>Lotes completos desechados como chatarra por formulaciones erróneas.</li>
+            </ul>
+          </div>
+          <div class="waste-card svc">
+            <h5><i class="fa-solid fa-briefcase"></i> En Servicios / Oficina</h5>
+            <ul>
+              <li>Facturas con montos erróneos que requieren anulación y nota de crédito.</li>
+              <li>Formularios rechazados porque faltaba información obligatoria.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="solution-box fragment">
+          <strong>¿Cómo eliminarlo?</strong> Dispositivos a prueba de fallos (Poka-Yoke), hojas de chequeo estandarizadas y control estadístico.
+        </div>
+        <aside class="notes">
+          [Min 81 - 87]
+          Regla de oro: bien hecho a la primera. Reprocesar duplica el costo de mano de obra.
+        </aside>
+      </section>
+
+      <!-- Slide 14: Desperdicio 8 - Talento No Aprovechado -->
+      <section>
+        <span class="waste-number">Desperdicio #8 (Muda)</span>
+        <h3>Talento Humano Subutilizado</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Desaprovechar la creatividad, experiencia operativa y capacidad de análisis de los colaboradores para solucionar problemas diarios.
+        </p>
+
+        <div class="waste-comparison">
+          <div class="waste-card mfg">
+            <h5><i class="fa-solid fa-industry"></i> En Manufactura</h5>
+            <ul>
+              <li>Operarios que detectan fallas mecánicas diarias sin canales para aportar ideas.</li>
+              <li>Técnicos calificados dedicados a barrer viruta en vez de optimizar líneas.</li>
+            </ul>
+          </div>
+          <div class="waste-card svc">
+            <h5><i class="fa-solid fa-briefcase"></i> En Servicios / Oficina</h5>
+            <ul>
+              <li>Profesionales con posgrado dedicando horas a fotocopiar legajos.</li>
+              <li>Ignorar propuestas de digitalización planteadas por el personal operativo.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="solution-box fragment">
+          <strong>¿Cómo eliminarlo?</strong> Círculos de calidad Kaizen, programas estructurados de ideas de mejora y empoderamiento operativo.
+        </div>
+        <aside class="notes">
+          [Min 87 - 93]
+          Añadido en las revisiones modernas (la letra 'N' en DOWNTIME). El operario de primera línea es quien mejor conoce el proceso.
+        </aside>
+      </section>
+
+      <!-- ==================== BLOQUE 4: EVALUACIÓN RÁPIDA Y APLICACIÓN ==================== -->
+
+      <!-- Slide 15: Mini-Quiz -->
+      <section>
+        <h3><i class="fa-solid fa-puzzle-piece" style="color: var(--uned-cyan);"></i> Trivial Operativo: Clasifica el Desperdicio</h3>
+        <p style="font-size: 0.68em;">Participación directa (micrófono o chat):</p>
+
+        <div style="text-align: left; font-size: 0.65em; margin-top: 10px;">
+          <div class="highlight-box">
+            <strong>Caso 1:</strong> El departamento financiero imprime las facturas electrónicas para colocarles un sello de tinta que dice "Revisado Digitalmente".
+            <p class="fragment" style="color: var(--accent-red); margin-top: 4px; font-weight: 700;">
+              <i class="fa-solid fa-check"></i> <strong>Sobreprocesamiento</strong> (Actividad redundante que no agrega valor).
+            </p>
+          </div>
+
+          <div class="highlight-box">
+            <strong>Caso 2:</strong> En un taller, las herramientas de ajuste común están bajo llave en el casillero personal del supervisor.
+            <p class="fragment" style="color: var(--accent-red); margin-top: 4px; font-weight: 700;">
+              <i class="fa-solid fa-check"></i> <strong>Movimiento + Espera</strong> (Los técnicos caminan a buscarlo y esperan a que abra).
+            </p>
+          </div>
+
+          <div class="highlight-box">
+            <strong>Caso 3:</strong> Un banco emite 2,000 contratos pre-impresos de un servicio que solo solicitan 40 clientes al mes.
+            <p class="fragment" style="color: var(--accent-red); margin-top: 4px; font-weight: 700;">
+              <i class="fa-solid fa-check"></i> <strong>Sobreproducción</strong> (Genera inventario documental y riesgo de pérdida).
+            </p>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 93 - 105]
+          Fomentar el debate breve en cada uno. Preguntar si alguien encuentra desperdicios combinados.
+        </aside>
+      </section>
+
+      <!-- Slide 16: Taller Práctico - Caso N.º 1 -->
+      <section>
+        <h3><i class="fa-solid fa-people-group" style="color: var(--uned-blue);"></i> Taller Aplicado: Caso de Estudio N.º 1</h3>
+        <div class="col-2">
+          <div class="col-2-text">
+            <p><strong>Dinámica en Subgrupos (Google Classroom):</strong></p>
+            <ol style="line-height: 1.45;">
+              <li class="fragment">Ingresar al subgrupo asignado en Google Classroom.</li>
+              <li class="fragment">Leer detalladamente el caso operativo (Créditos bancarios, Mueblería, Almacén o Clínica).</li>
+              <li class="fragment">Identificar con evidencia concreta <strong>al menos 5 de los 8 desperdicios</strong>.</li>
+              <li class="fragment">Estructurar el impacto operativo en la matriz estandarizada.</li>
+              <li class="fragment">Subir el reporte grupal en PDF antes de la fecha límite fijada.</li>
+            </ol>
+          </div>
+          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="image-rounded fragment" alt="Trabajo Colaborativo">
+        </div>
+        <aside class="notes">
+          [Min 105 - 115]
+          Explicar cómo están organizados los subgrupos en Classroom.
+          Indicar los canales de consulta asincrónica y recordar que el reporte grupal forma parte del 30% evaluativo.
+        </aside>
+      </section>
+
+      <!-- Slide 17: Cierre y Próximos Pasos (Versión limpia original) -->
+      <section>
+        <h2>Cierre de la Sesión</h2>
+        <p style="font-size: 0.75em; color: var(--uned-cyan); font-weight: 600;">
+          ¿Consultas o reflexiones antes de iniciar el trabajo colaborativo?
+        </p>
+
+        <div class="highlight-box" style="margin-top: 15px; text-align: left; font-size: 0.65em;">
+          <strong>Preparación para la Semana 2 (Nivel Yellow Belt):</strong>
+          <ul style="margin-top: 6px;">
+            <li>Entrada formal al <strong>Ciclo DMAIC</strong>.</li>
+            <li><strong>Fase Definir (D):</strong> Project Charter, Mapeo SIPOC y Voz del Cliente (VOC).</li>
+            <li><strong>Fase Medir (M):</strong> Tipos de datos, métricas operacionales y plan de recolección de datos.</li>
+          </ul>
+        </div>
+
+        <p style="margin-top: 25px; font-size: 0.52em; color: #718096;">
+          Universidad Estatal a Distancia · Escuela de Ciencias de la Administración · Cátedra de Producción
+        </p>
+        <aside class="notes">
+          [Min 115 - 120]
+          Espacio final de preguntas. Despedida y motivación para el taller en subgrupos.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Scripts Reveal.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'fade',
+      controls: true,
+      progress: true,
+      center: false,
+      width: 1280,
+      height: 720,
+      margin: 0.04,
+      minScale: 0.2,
+      maxScale: 2.0,
+      showNotes: false
+    });
+  </script>
+</body>
+</html>
