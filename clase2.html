@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Semana 2: DMAIC - Fases Definir y Medir | UNED</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css" id="theme">
+
+  <!-- Iconos FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tipografía Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --uned-blue: #003366;
+      --uned-cyan: #008080;
+      --accent-red: #d9534f;
+      --accent-green: #2e7d32;
+      --light-bg: #f8f9fa;
+      --card-border: #e2e8f0;
+    }
+    .reveal {
+      font-family: 'Montserrat', sans-serif;
+      color: #2d3748;
+    }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--uned-blue);
+      text-transform: none;
+      font-weight: 800;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    .reveal h2 { font-size: 1.8em; }
+    .reveal h3 { font-size: 1.35em; }
+    .reveal h4 { font-size: 1.05em; }
+
+    /* Ajuste responsivo de diapositivas */
+    .reveal .slides section {
+      box-sizing: border-box;
+      padding: 15px 30px !important;
+      max-height: 100%;
+      overflow-y: auto !important;
+    }
+    .reveal .slides section::-webkit-scrollbar {
+      width: 5px;
+    }
+    .reveal .slides section::-webkit-scrollbar-thumb {
+      background: rgba(0, 51, 102, 0.25);
+      border-radius: 4px;
+    }
+
+    /* Portada Hero */
+    .hero-slide {
+      background: linear-gradient(rgba(0, 51, 102, 0.88), rgba(0, 128, 128, 0.88)), 
+                  url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+      color: white !important;
+      border-radius: 12px;
+      padding: 30px !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .hero-slide h2, .hero-slide h4 { color: white; }
+
+    /* Layout en dos columnas */
+    .col-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .col-2-text { text-align: left; font-size: 0.72em; }
+
+    /* Layout de pasos DMAIC */
+    .dmaic-steps {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .dmaic-card {
+      background: var(--light-bg);
+      border-radius: 8px;
+      padding: 12px 8px;
+      text-align: center;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+    .dmaic-card.active {
+      border: 2px solid var(--uned-cyan);
+      background: #eef9f8;
+      transform: translateY(-4px);
+    }
+    .dmaic-letter {
+      font-size: 2em;
+      font-weight: 800;
+      color: var(--uned-blue);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .dmaic-card.active .dmaic-letter {
+      color: var(--uned-cyan);
+    }
+
+    /* Tarjetas temáticas */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+      font-size: 0.68em;
+      text-align: left;
+    }
+    .feature-card {
+      background: var(--light-bg);
+      border-radius: 8px;
+      padding: 12px 14px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+    }
+    .feature-card.primary { border-top: 4px solid var(--uned-blue); }
+    .feature-card.secondary { border-top: 4px solid var(--uned-cyan); }
+    .feature-card h5 {
+      margin-top: 0;
+      margin-bottom: 6px;
+      font-size: 1.05em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feature-card ul {
+      margin: 4px 0 0 16px;
+      padding: 0;
+    }
+    .feature-card li {
+      margin-bottom: 5px;
+      line-height: 1.35;
+    }
+
+    /* SIPOC Grid */
+    .sipoc-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 0.65em;
+      text-align: left;
+    }
+    .sipoc-col {
+      background: var(--light-bg);
+      border-radius: 6px;
+      padding: 10px;
+      border-top: 4px solid var(--uned-blue);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    }
+    .sipoc-col h6 {
+      margin: 0 0 6px 0;
+      font-size: 1.1em;
+      color: var(--uned-blue);
+      text-align: center;
+      border-bottom: 1px solid #cbd5e0;
+      padding-bottom: 4px;
+    }
+
+    /* Solución / Destacados */
+    .solution-box {
+      background: #eef9f8;
+      border-left: 4px solid var(--uned-cyan);
+      padding: 8px 14px;
+      margin-top: 10px;
+      font-size: 0.65em;
+      text-align: left;
+      border-radius: 0 6px 6px 0;
+    }
+    .highlight-box {
+      background: #f0f4f8;
+      border-left: 4px solid var(--uned-blue);
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 0.72em;
+      text-align: left;
+      margin: 8px 0;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.48em;
+      color: white;
+      background: var(--uned-cyan);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .phase-tag {
+      font-size: 0.45em;
+      color: var(--uned-cyan);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .image-rounded {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      max-height: 290px;
+      width: 100%;
+      object-fit: cover;
+    }
+    table.custom-table {
+      width: 100%;
+      font-size: 0.62em;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    table.custom-table th {
+      background: var(--uned-blue);
+      color: white;
+      padding: 7px 10px;
+    }
+    table.custom-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ==================== BLOQUE 1: INTRODUCCIÓN Y REPASO ==================== -->
+
+      <!-- Slide 1: Portada -->
+      <section>
+        <div class="hero-slide">
+          <span class="badge">UNED · Escuela de Ciencias de la Administración</span>
+          <br><br>
+          <h2 style="font-size: 2.1em;">Lean Six Sigma</h2>
+          <h4 style="font-weight: 400; color: #b2ebf2;">Nivel Yellow Belt: Fases Definir (D) y Medir (M)</h4>
+          <hr style="border-color: rgba(255,255,255,0.25); margin: 20px 0;">
+          <p style="font-size: 0.8em; margin: 0;">
+            <i class="fa-solid fa-graduation-cap"></i> <strong>Semana 2:</strong> Project Charter, VOC a CTQ, SIPOC y Plan de Medición<br>
+            <i class="fa-solid fa-users-gear"></i> Cátedra de Producción | Carrera de Administración con énfasis en Operaciones
+          </p>
+        </div>
+        <aside class="notes">
+          [Min 0 - 5]
+          Bienvenida a la segunda sesión sincrónica.
+          Felicitar a los equipos por los reportes de desperdicios de la Semana 1.
+          Hoy pasamos de "observar el problema" (White Belt) a "estructurar el proyecto" (Yellow Belt) mediante el ciclo DMAIC.
+        </aside>
+      </section>
+
+      <!-- Slide 2: El Ciclo DMAIC Completo -->
+      <section>
+        <h3>La Columna Vertebral: El Ciclo DMAIC</h3>
+        <p style="font-size: 0.72em; text-align: left;">
+          DMAIC es una metodología estructurada en 5 fases lógicas para resolver problemas complejos sin adivinar soluciones apresuradas.
+        </p>
+
+        <div class="dmaic-steps">
+          <div class="dmaic-card active">
+            <span class="dmaic-letter">D</span>
+            <strong style="font-size: 0.8em; color: var(--uned-blue);">DEFINIR</strong>
+            <p style="font-size: 0.6em; margin-top: 4px;">¿Cuál es el problema, el alcance y la meta?</p>
+          </div>
+          <div class="dmaic-card active">
+            <span class="dmaic-letter">M</span>
+            <strong style="font-size: 0.8em; color: var(--uned-blue);">MEDIR</strong>
+            <p style="font-size: 0.6em; margin-top: 4px;">¿Cómo medimos el proceso actual (línea base)?</p>
+          </div>
+          <div class="dmaic-card">
+            <span class="dmaic-letter" style="color: #a0aec0;">A</span>
+            <strong style="font-size: 0.8em; color: #718096;">ANALIZAR</strong>
+            <p style="font-size: 0.6em; margin-top: 4px;">¿Cuál es la causa raíz del defecto?</p>
+          </div>
+          <div class="dmaic-card">
+            <span class="dmaic-letter" style="color: #a0aec0;">I</span>
+            <strong style="font-size: 0.8em; color: #718096;">MEJORAR</strong>
+            <p style="font-size: 0.6em; margin-top: 4px;">¿Qué soluciones eliminan la causa?</p>
+          </div>
+          <div class="dmaic-card">
+            <span class="dmaic-letter" style="color: #a0aec0;">C</span>
+            <strong style="font-size: 0.8em; color: #718096;">CONTROLAR</strong>
+            <p style="font-size: 0.6em; margin-top: 4px;">¿Cómo garantizamos que la mejora perdure?</p>
+          </div>
+        </div>
+
+        <div class="highlight-box fragment" style="margin-top: 15px; font-size: 0.68em;">
+          <strong>Regla fundamental del Yellow Belt:</strong> Jamás saltes a la fase Mejorar (I) sin haber medido y analizado con datos reales. "En Dios confiamos, todos los demás deben traer datos" (W. Edwards Deming).
+        </div>
+        <aside class="notes">
+          [Min 5 - 12]
+          Resaltar que el error del 90% de los administradores e ingenieros es saltar directamente de la D a la I (proponer soluciones intuitivas sin medir ni saber la causa real). Hoy blindaremos ese error.
+        </aside>
+      </section>
+
+      <!-- ==================== BLOQUE 2: FASE DEFINIR (D) ==================== -->
+
+      <!-- Slide 3: Objetivo de la Fase Definir -->
+      <section>
+        <span class="phase-tag">Fase 1: Ciclo DMAIC</span>
+        <h3>Fase Definir (D): Delimitando el Terreno</h3>
+        <div class="col-2">
+          <div class="col-2-text">
+            <p><strong>Propósito central:</strong> Clarificar qué problema vamos a resolver, por qué es crítico para el negocio y cuáles son los límites exactos del proyecto.</p>
+            <p><strong>Entregables principales de la fase:</strong></p>
+            <ul style="line-height: 1.45;">
+              <li class="fragment"><strong>Project Charter:</strong> Contrato formal entre el equipo de mejora y la alta gerencia.</li>
+              <li class="fragment"><strong>Voz del Cliente (VOC a CTQ):</strong> Traducir quejas vagas en requerimientos medibles.</li>
+              <li class="fragment"><strong>Matriz SIPOC:</strong> Mapa general de entradas, proceso y salidas.</li>
+            </ul>
+          </div>
+          <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="image-rounded fragment" alt="Planificación y Negocios">
+        </div>
+        <aside class="notes">
+          [Min 12 - 20]
+          Explicar que un proyecto mal definido es un proyecto fracasado. El Project Charter evita que el proyecto se desvíe o crezca sin control (Project Creep).
+        </aside>
+      </section>
+
+      <!-- Slide 4: El Project Charter y sus Componentes -->
+      <section>
+        <span class="phase-tag">Herramienta Clave: Definir</span>
+        <h3>El Project Charter (Acta de Constitución)</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Documento vivo de una sola página que resume la esencia del proyecto. Consta de 6 elementos vitales:
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-card primary">
+            <h5><i class="fa-solid fa-briefcase"></i> 1. Caso de Negocio (Business Case)</h5>
+            <p>¿Por qué vale la pena invertir tiempo y dinero aquí? Justifica el impacto económico o estratégico para la organización.</p>
+          </div>
+          <div class="feature-card primary">
+            <h5><i class="fa-solid fa-triangle-exclamation"></i> 2. Planteamiento del Problema</h5>
+            <p>¿Qué está fallando, desde cuándo y en qué magnitud? Redactado con datos, sin buscar culpables ni adelantar soluciones.</p>
+          </div>
+          <div class="feature-card secondary">
+            <h5><i class="fa-solid fa-bullseye"></i> 3. Declaración de la Meta (Objetivo)</h5>
+            <p>¿Qué nivel de rendimiento alcanzaremos y para qué fecha? Debe cumplir con el criterio SMART (Específico, Medible, Alcanzable, Relevante, Temporal).</p>
+          </div>
+          <div class="feature-card secondary">
+            <h5><i class="fa-solid fa-arrows-split-up-and-left"></i> 4. Alcance del Proyecto (Scope)</h5>
+            <p>Define claramente qué está <strong>DENTRO</strong> y qué queda <strong>FUERA</strong> del proyecto para no abarcar más de la cuenta.</p>
+          </div>
+        </div>
+
+        <div class="solution-box fragment">
+          <strong>Componentes 5 y 6:</strong> <strong>Equipo de Trabajo</strong> (Sponsor, Líder Belt, Miembros del área) y <strong>Cronograma Preliminar</strong> (Fechas objetivo para cada fase de DMAIC).
+        </div>
+        <aside class="notes">
+          [Min 20 - 32]
+          Detenerse en el "Alcance". Es muy común que los equipos quieran arreglar todo el hospital o toda la fábrica. Un Yellow Belt delimita: "Abarca solo desde que el paciente entra a triaje hasta que sale de rayos X".
+        </aside>
+      </section>
+
+      <!-- Slide 5: Errores Comunes al Redactar Problemas y Metas -->
+      <section>
+        <span class="phase-tag">Taller de Criterio: Project Charter</span>
+        <h3>Cómo Plantear el Problema: Trampas Habituales</h3>
+        <p style="font-size: 0.7em; text-align: left;">La diferencia entre un analista novato y un Yellow Belt certificado:</p>
+
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th style="width: 20%;">Elemento</th>
+              <th style="width: 40%; background: #c53030;">Formulación Errónea (Inadecuada)</th>
+              <th style="width: 40%; background: var(--accent-green);">Formulación Correcta (Lean Six Sigma)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="fragment">
+              <td><strong>Problema</strong></td>
+              <td><em>"El problema es que nos falta un nuevo software de gestión documental y el personal no está capacitado."</em><br><small style="color: #c53030;">(Asume la solución y culpa a las personas)</small></td>
+              <td><em>"Durante el último semestre, el tiempo promedio de aprobación de créditos es de 8 días hábiles frente a la promesa de 2 días, generando una tasa de cancelación del 22%."</em><br><small style="color: var(--accent-green);">(Basado en datos y efectos operativos)</small></td>
+            </tr>
+            <tr class="fragment">
+              <td><strong>Meta</strong></td>
+              <td><em>"Mejorar el servicio al cliente y comprar el software antes de diciembre."</em><br><small style="color: #c53030;">(Vago, sin métrica de desempeño)</small></td>
+              <td><em>"Reducir el tiempo promedio de aprobación de créditos de 8 días a menos de 48 horas para el 30 de noviembre de 2026."</em><br><small style="color: var(--accent-green);">(Métrica cuantificable, línea base y fecha límite)</small></td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="notes">
+          [Min 32 - 40]
+          Hacer énfasis absoluto: NUNCA poner "falta de algo" como problema. La "falta de un software" o la "falta de personal" son soluciones preconcebidas que cierran la puerta a analizar causas reales.
+        </aside>
+      </section>
+
+      <!-- Slide 6: Voz del Cliente (VOC) a Requerimientos Críticos (CTQ) -->
+      <section>
+        <span class="phase-tag">Herramienta Clave: Definir</span>
+        <h3>Traduciendo al Cliente: De la VOC al CTQ</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          El cliente se expresa con emociones e insatisfacciones generales. El Yellow Belt traduce esa voz en parámetros operativos medibles.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 15px; font-size: 0.68em; text-align: left;">
+          <div class="feature-card primary">
+            <h5 style="color: var(--uned-blue);"><i class="fa-solid fa-comment-dots"></i> 1. Voz del Cliente (VOC)</h5>
+            <p>La queja cualitativa directa del cliente:</p>
+            <div class="highlight-box" style="margin-top: 8px;">
+              <em>"¡La comida en este restaurante tarda demasiado en llegar y además me la sirven fría!"</em>
+            </div>
+          </div>
+          <div class="feature-card secondary">
+            <h5 style="color: var(--uned-cyan);"><i class="fa-solid fa-filter"></i> 2. Necesidad Operativa</h5>
+            <p>La condición básica que satisface la queja:</p>
+            <div class="solution-box" style="margin-top: 8px;">
+              • Entrega oportuna de la comanda.<br>
+              • Temperatura óptima del platillo al momento de servir.
+            </div>
+          </div>
+          <div class="feature-card" style="border-top: 4px solid var(--accent-green);">
+            <h5 style="color: var(--accent-green);"><i class="fa-solid fa-ruler-combined"></i> 3. Parámetro Crítico (CTQ)</h5>
+            <p>La métrica medible y su especificación:</p>
+            <div style="background: #f0fff4; border-left: 4px solid var(--accent-green); padding: 8px 12px; margin-top: 8px; border-radius: 4px;">
+              • <strong>CTQ 1:</strong> Tiempo de entrega ≤ 20 minutos.<br>
+              • <strong>CTQ 2:</strong> Temperatura de servido ≥ 60°C.
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 40 - 50]
+          Explicar que la calidad no se logra diciendo "queremos un servicio excelente", sino definiendo exactamente cuánto debe medir el CTQ. Si mides el CTQ, puedes controlarlo.
+        </aside>
+      </section>
+
+      <!-- Slide 7: Matriz SIPOC -->
+      <section>
+        <span class="phase-tag">Herramienta Clave: Definir</span>
+        <h3>Matriz SIPOC: El Mapa de Alto Nivel</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 4px;">
+          Permite visualizar todo el flujo del proceso en 5 columnas consecutivas sin perderse en detalles menores.
+        </p>
+
+        <div class="sipoc-grid">
+          <div class="sipoc-col">
+            <h6>S</h6>
+            <strong>Suppliers (Proveedores)</strong>
+            <p style="margin-top: 6px;">¿Quién provee los insumos, datos o materiales al proceso?</p>
+          </div>
+          <div class="sipoc-col">
+            <h6>I</h6>
+            <strong>Inputs (Entradas)</strong>
+            <p style="margin-top: 6px;">¿Qué información, materias primas o formatos se requieren?</p>
+          </div>
+          <div class="sipoc-col" style="border-top-color: var(--uned-cyan); background: #eef9f8;">
+            <h6 style="color: var(--uned-cyan);">P</h6>
+            <strong>Process (Proceso)</strong>
+            <p style="margin-top: 6px;">Bloques macro de actividades (máximo 5 a 7 pasos principales).</p>
+          </div>
+          <div class="sipoc-col">
+            <h6>O</h6>
+            <strong>Outputs (Salidas)</strong>
+            <p style="margin-top: 6px;">¿Qué producto, servicio o reporte tangible genera el proceso?</p>
+          </div>
+          <div class="sipoc-col">
+            <h6>C</h6>
+            <strong>Customers (Clientes)</strong>
+            <p style="margin-top: 6px;">¿Quién recibe el resultado final (interno o externo)?</p>
+          </div>
+        </div>
+
+        <div class="solution-box fragment" style="margin-top: 10px;">
+          <strong>Regla de oro para diseñar un SIPOC:</strong> Suele completarse en orden: 1° Proceso (P), 2° Salidas (O), 3° Clientes (C), 4° Entradas (I) y 5° Proveedores (S).
+        </div>
+        <aside class="notes">
+          [Min 50 - 62]
+          Detallar que el SIPOC no es un diagrama de flujo con 50 cajas. Es una vista macro. Si tiene más de 7 pasos en la columna P, está demasiado detallado y pierde su propósito de alineación ejecutiva.
+        </aside>
+      </section>
+
+      <!-- ==================== BLOQUE 3: FASE MEDIR (M) ==================== -->
+
+      <!-- Slide 8: Objetivo de la Fase Medir -->
+      <section>
+        <span class="phase-tag">Fase 2: Ciclo DMAIC</span>
+        <h3>Fase Medir (M): ¿Cómo sabemos dónde estamos?</h3>
+        <div class="col-2">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="image-rounded" alt="Métricas y Datos">
+          <div class="col-2-text">
+            <p><strong>Propósito central:</strong> Cuantificar el estado actual del proceso para establecer la <strong>Línea Base (Baseline)</strong> antes de tocar cualquier variable.</p>
+            <p><strong>Preguntas críticas que responde la fase:</strong></p>
+            <ul style="line-height: 1.45;">
+              <li class="fragment">¿Qué datos específicos necesitamos recolectar?</li>
+              <li class="fragment">¿Nuestros instrumentos o personas miden de forma confiable?</li>
+              <li class="fragment">¿Cuál es el nivel de defectos o variación actual del proceso?</li>
+            </ul>
+            <div class="highlight-box fragment" style="margin-top: 10px;">
+              <em>"Lo que no se mide no se controla, lo que no se controla no se puede mejorar."</em>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 62 - 70]
+          Explicar el concepto de "Línea Base". Si hoy no sabemos cuántos defectos por mil producimos, el día de mañana no podremos demostrarle a la gerencia si el proyecto ahorró dinero o no.
+        </aside>
+      </section>
+
+      <!-- Slide 9: Tipos de Datos (Atributos vs Variables) -->
+      <section>
+        <span class="phase-tag">Estadística Descriptiva: Medir</span>
+        <h3>Tipos de Datos Operacionales</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Saber distinguir el tipo de dato determina qué herramientas estadísticas y gráficos se pueden utilizar:
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-card primary">
+            <h5><i class="fa-solid fa-list-check"></i> Datos por Atributos (Cualitativos / Discretos)</h5>
+            <p><strong>Se cuentan.</strong> Representan categorías fijas o números enteros:</p>
+            <ul>
+              <li>Bueno / Malo, Conforme / No Conforme.</li>
+              <li>Conteo de errores en facturas (0, 1, 2, 3...).</li>
+              <li>Tipo de falla mecánica (Eléctrica, Hidráulica, Humana).</li>
+            </ul>
+            <div class="highlight-box" style="margin-top: 8px; font-size: 0.9em;">
+              Requieren muestras más grandes para detectar cambios.
+            </div>
+          </div>
+          <div class="feature-card secondary">
+            <h5><i class="fa-solid fa-stopwatch-20"></i> Datos por Variables (Cuantitativos / Continuos)</h5>
+            <p><strong>Se miden con instrumentos.</strong> Pueden tomar infinitos valores decimales:</p>
+            <ul>
+              <li>Tiempo de ciclo (Ej. 4.35 minutos).</li>
+              <li>Temperatura, peso, presión o dimensiones físicas (mm).</li>
+              <li>Costo monetario de un trámite.</li>
+            </ul>
+            <div class="solution-box" style="margin-top: 8px; font-size: 0.9em;">
+              <strong>Preferencia Six Sigma:</strong> Proveen mucha más información con muestras más pequeñas.
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 70 - 80]
+          Poner ejemplos interactivos: "Si mido la estatura de un estudiante con regla (1.75 m) es variable continuo. Si digo si es alto o bajo, es atributo discreto". Six Sigma siempre busca transformar atributos en variables.
+        </aside>
+      </section>
+
+      <!-- Slide 10: Métricas Básicas (DPU y DPMO) -->
+      <section>
+        <span class="phase-tag">Métricas Clave: Medir</span>
+        <h3>Cuantificando Defectos: DPU y DPMO</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Dos métricas universales para dimensionar la calidad independientemente del sector:
+        </p>
+
+        <div class="col-2" style="align-items: stretch;">
+          <div class="feature-card primary">
+            <h5><i class="fa-solid fa-calculator"></i> DPU (Defectos Por Unidad)</h5>
+            <p>Promedio de defectos encontrados en cada artículo o trámite inspeccionado:</p>
+            <div style="background: #fff; padding: 10px; border-radius: 6px; text-align: center; font-weight: 700; margin: 10px 0; border: 1px solid #cbd5e0;">
+              DPU = Total de Defectos / Unidades Inspeccionadas
+            </div>
+            <p style="font-size: 0.85em;"><em>Ejemplo:</em> En 100 créditos aprobados se detectaron 15 errores en total $\rightarrow$ DPU = 0.15 defectos por expediente.</p>
+          </div>
+          <div class="feature-card secondary">
+            <h5><i class="fa-solid fa-chart-pie"></i> DPMO (Defectos Por Millón de Oportunidades)</h5>
+            <p>Normaliza la tasa de defectos considerando la complejidad del producto:</p>
+            <div style="background: #fff; padding: 10px; border-radius: 6px; text-align: center; font-weight: 700; margin: 10px 0; border: 1px solid #cbd5e0;">
+              DPMO = (Total Defectos / [Unidades × Oportunidades]) × 1,000,000
+            </div>
+            <p style="font-size: 0.85em;">Permite comparar procesos disímiles (fabricar un avión vs. emitir una tarjeta de crédito).</p>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 80 - 90]
+          Explicar el concepto de "Oportunidad de Defecto": Una factura puede tener 5 campos obligatorios donde equivocarse (5 oportunidades). Si fallan 2 campos, son 2 defectos en 1 sola unidad.
+        </aside>
+      </section>
+
+      <!-- Slide 11: Plan de Recolección de Datos -->
+      <section>
+        <span class="phase-tag">Operación en Campo: Medir</span>
+        <h3>Estructura de un Plan de Recolección de Datos</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Antes de pedirle al personal que recopile información, se debe protocolizar el método para asegurar datos limpios y objetivos:
+        </p>
+
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Pregunta Clave</th>
+              <th>Propósito Metodológico</th>
+              <th>Ejemplo en el Caso Bancario</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="fragment">
+              <td><strong>¿Qué medir?</strong></td>
+              <td>Definición operacional precisa y sin ambigüedades del parámetro.</td>
+              <td>Tiempo transcurrido desde que se recibe el correo hasta que se emite la resolución.</td>
+            </tr>
+            <tr class="fragment">
+              <td><strong>¿Cómo medir?</strong></td>
+              <td>Herramienta, formato digital o instrumento estandarizado.</td>
+              <td>Registro automático de marca de tiempo (timestamp) en la base de datos central.</td>
+            </tr>
+            <tr class="fragment">
+              <td><strong>¿Quién mide?</strong></td>
+              <td>Responsable designado y capacitado en la recolección.</td>
+              <td>El Asistente A registra el ingreso y el Analista B registra el cierre del expediente.</td>
+            </tr>
+            <tr class="fragment">
+              <td><strong>¿Dónde y Cuándo?</strong></td>
+              <td>Ubicación, frecuencia de muestreo y tamaño de la muestra.</td>
+              <td>Todas las solicitudes recibidas durante dos semanas consecutivas (muestreo continuo).</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="notes">
+          [Min 90 - 98]
+          Aclarar que los datos mal recolectados conducen a conclusiones falsas (Garbage In, Garbage Out). Un Yellow Belt diseña una hoja de recolección a prueba de errores.
+        </aside>
+      </section>
+
+      <!-- ==================== BLOQUE 4: EVALUACIÓN Y LANZAMIENTO DE CASOS ==================== -->
+
+      <!-- Slide 12: Mini-Quiz de Afianzamiento -->
+      <section>
+        <h3><i class="fa-solid fa-puzzle-piece" style="color: var(--uned-cyan);"></i> Trivial Operativo: Clasifica y Traduce</h3>
+        <p style="font-size: 0.68em;">Participación directa (micrófono o chat):</p>
+
+        <div style="text-align: left; font-size: 0.65em; margin-top: 10px;">
+          <div class="highlight-box">
+            <strong>Caso 1:</strong> En un centro de llamadas medimos los segundos que un cliente pasa en espera antes de ser atendido. ¿Qué tipo de dato es?
+            <p class="fragment" style="color: var(--accent-green); margin-top: 4px; font-weight: 700;">
+              <i class="fa-solid fa-check"></i> <strong>Dato Continuo (Variable)</strong> (Se mide en escala temporal continua: segundos/minutos).
+            </p>
+          </div>
+
+          <div class="highlight-box">
+            <strong>Caso 2:</strong> Un paciente hospitalario manifiesta: <em>"La sala de espera es un congelador y los asientos son incomodísimos"</em>. ¿Cuál sería el CTQ?
+            <p class="fragment" style="color: var(--accent-green); margin-top: 4px; font-weight: 700;">
+              <i class="fa-solid fa-check"></i> <strong>CTQ 1:</strong> Temperatura ambiental controlada entre 21°C y 23°C.
+            </p>
+          </div>
+
+          <div class="highlight-box">
+            <strong>Caso 3:</strong> Un gerente afirma: <em>"El problema del departamento es que la gente no tiene motivación"</em>. ¿Por qué es un mal planteamiento?
+            <p class="fragment" style="color: var(--accent-red); margin-top: 4px; font-weight: 700;">
+              <i class="fa-solid fa-triangle-exclamation"></i> Es subjetivo, busca culpables y carece de datos cuantificables de desempeño.
+            </p>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 98 - 108]
+          Fomentar la discusión rápida. Resaltar cómo en el caso 2 convertimos una queja subjetiva ("hace frío") en un CTQ numérico ("21°C - 23°C").
+        </aside>
+      </section>
+
+      <!-- Slide 13: Dinámica del Caso Práctico N.º 2 -->
+      <section>
+        <h3><i class="fa-solid fa-people-group" style="color: var(--uned-blue);"></i> Taller Aplicado: Caso de Estudio N.º 2</h3>
+        <div class="col-2">
+          <div class="col-2-text">
+            <p><strong>Continuidad del Proyecto en Google Classroom:</strong></p>
+            <p style="font-size: 0.9em;">Cada subgrupo retomará la organización analizada en la Semana 1 (Banco, Fábrica, Almacén, Clínica o Municipalidad).</p>
+            <ol style="line-height: 1.45; margin-top: 8px;">
+              <li class="fragment">Redactar el <strong>Project Charter</strong> formal (Planteamiento del problema y Meta SMART).</li>
+              <li class="fragment">Mapear la <strong>Matriz SIPOC</strong> identificando los límites del proceso.</li>
+              <li class="fragment">Traducir la <strong>VOC a al menos dos CTQ medibles</strong>.</li>
+              <li class="fragment">Subir la entrega grupal a Classroom en el formato estandarizado.</li>
+            </ol>
+          </div>
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="image-rounded fragment" alt="Equipos de Trabajo">
+        </div>
+        <aside class="notes">
+          [Min 108 - 116]
+          Explicar que no tienen que inventar una empresa nueva. Usarán los datos de la semana 1 para darle vida al Project Charter y al SIPOC. Esto representa el avance del 30% grupal.
+        </aside>
+      </section>
+
+      <!-- Slide 14: Cierre y Próximos Pasos -->
+      <section>
+        <h2>Cierre de la Sesión</h2>
+        <p style="font-size: 0.75em; color: var(--uned-cyan); font-weight: 600;">
+          ¿Consultas sobre Project Charter, VOC o SIPOC antes de pasar al taller?
+        </p>
+
+        <div class="highlight-box" style="margin-top: 15px; text-align: left; font-size: 0.65em;">
+          <strong>Preparación para la Semana 3 (Fases Analizar y Mejorar):</strong>
+          <ul style="margin-top: 6px;">
+            <li><strong>Fase Analizar (A):</strong> Diagrama de Ishikawa (6M), 5 Porqués, Principio de Pareto y FMEA básico.</li>
+            <li><strong>Fase Mejorar (I):</strong> Metodología 5S, Trabajo Estandarizado, Control Visual y Poka-Yoke.</li>
+          </ul>
+        </div>
+
+        <p style="margin-top: 25px; font-size: 0.52em; color: #718096;">
+          Universidad Estatal a Distancia · Escuela de Ciencias de la Administración · Cátedra de Producción
+        </p>
+        <aside class="notes">
+          [Min 116 - 120]
+          Espacio final de dudas, agradecimiento y despedida de la sesión sincrónica.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Scripts Reveal.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'fade',
+      controls: true,
+      progress: true,
+      center: false,
+      width: 1280,
+      height: 720,
+      margin: 0.04,
+      minScale: 0.2,
+      maxScale: 2.0,
+      showNotes: false
+    });
+  </script>
+</body>
+</html>
