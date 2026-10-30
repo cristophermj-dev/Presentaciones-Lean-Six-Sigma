@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Semana 3: DMAIC - Fases Analizar y Mejorar | UNED</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css" id="theme">
+
+  <!-- Iconos FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tipografía Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --uned-blue: #003366;
+      --uned-cyan: #008080;
+      --accent-red: #d9534f;
+      --accent-green: #2e7d32;
+      --accent-orange: #f39c12;
+      --light-bg: #f8f9fa;
+      --card-border: #e2e8f0;
+    }
+    .reveal {
+      font-family: 'Montserrat', sans-serif;
+      color: #2d3748;
+    }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--uned-blue);
+      text-transform: none;
+      font-weight: 800;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    .reveal h2 { font-size: 1.8em; }
+    .reveal h3 { font-size: 1.35em; }
+    .reveal h4 { font-size: 1.05em; }
+
+    /* Ajuste responsivo de diapositivas */
+    .reveal .slides section {
+      box-sizing: border-box;
+      padding: 15px 30px !important;
+      max-height: 100%;
+      overflow-y: auto !important;
+    }
+    .reveal .slides section::-webkit-scrollbar { width: 5px; }
+    .reveal .slides section::-webkit-scrollbar-thumb { background: rgba(0, 51, 102, 0.25); border-radius: 4px; }
+
+    /* Portada Hero */
+    .hero-slide {
+      background: linear-gradient(rgba(0, 51, 102, 0.90), rgba(0, 128, 128, 0.90)), 
+                  url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+      color: white !important;
+      border-radius: 12px;
+      padding: 30px !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .hero-slide h2, .hero-slide h4 { color: white; }
+
+    /* Layout en dos columnas */
+    .col-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .col-2-text { text-align: left; font-size: 0.72em; line-height: 1.5; }
+
+    /* Tarjetas de Herramientas */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+      font-size: 0.68em;
+      text-align: left;
+    }
+    .tool-card {
+      background: var(--light-bg);
+      border-radius: 8px;
+      padding: 14px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+    }
+    .tool-card.primary { border-top: 4px solid var(--uned-blue); }
+    .tool-card.secondary { border-top: 4px solid var(--uned-cyan); }
+    .tool-card.warning { border-top: 4px solid var(--accent-orange); }
+    .tool-card h5 { margin-top: 0; margin-bottom: 6px; font-size: 1.1em; display: flex; align-items: center; gap: 8px; }
+
+    /* Cajas destacadas */
+    .highlight-box {
+      background: #f0f4f8;
+      border-left: 4px solid var(--uned-blue);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 0.72em;
+      text-align: left;
+      margin: 10px 0;
+    }
+    .solution-box {
+      background: #eef9f8;
+      border-left: 4px solid var(--accent-green);
+      padding: 12px 16px;
+      margin-top: 10px;
+      font-size: 0.72em;
+      text-align: left;
+      border-radius: 4px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.48em;
+      color: white;
+      background: var(--uned-cyan);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .phase-tag {
+      font-size: 0.45em;
+      color: var(--uned-cyan);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .image-rounded {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      max-height: 320px;
+      width: 100%;
+      object-fit: cover;
+    }
+    
+    /* 5S Grid Especial */
+    .five-s-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .s-card {
+      background: white;
+      border: 1px solid var(--uned-cyan);
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+    }
+    .s-card h6 {
+      color: var(--uned-cyan);
+      font-size: 1.1em;
+      margin: 5px 0;
+      font-weight: 800;
+    }
+    .s-card p {
+      font-size: 0.55em;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ==================== BLOQUE 1: FASE ANALIZAR ==================== -->
+
+      <!-- Slide 1: Portada -->
+      <section>
+        <div class="hero-slide">
+          <span class="badge">UNED · Escuela de Ciencias de la Administración</span>
+          <br><br>
+          <h2 style="font-size: 2.1em;">Lean Six Sigma</h2>
+          <h4 style="font-weight: 400; color: #b2ebf2;">Nivel Yellow Belt: Fases Analizar (A) y Mejorar (I)</h4>
+          <hr style="border-color: rgba(255,255,255,0.25); margin: 20px 0;">
+          <p style="font-size: 0.8em; margin: 0;">
+            <i class="fa-solid fa-microscope"></i> <strong>Semana 3:</strong> Ishikawa, 5 Porqués, 5S y Poka-Yoke<br>
+            <i class="fa-solid fa-users-gear"></i> Cátedra de Producción | Carrera de Administración con énfasis en Operaciones
+          </p>
+        </div>
+        <aside class="notes">
+          [Min 0 - 5] Bienvenida a la Semana 3. 
+          Ya definimos el problema y medimos la situación actual. Hoy vamos a descubrir POR QUÉ ocurren esos problemas y a diseñar soluciones a prueba de errores.
+        </aside>
+      </section>
+
+      <!-- Slide 2: Introducción a la Fase Analizar -->
+      <section>
+        <span class="phase-tag">Tercera Fase DMAIC</span>
+        <h3>Fase Analizar (A): Detectando la Raíz</h3>
+        <div class="col-2">
+          <div class="col-2-text">
+            <p><strong>El Error Común:</strong> Atacar los síntomas (ej. darle una pastilla al paciente para el dolor) en lugar de curar la enfermedad (ej. operar la apendicitis).</p>
+            <p><strong>Propósito de la Fase:</strong></p>
+            <ul style="line-height: 1.6;">
+              <li class="fragment">Dejar de asumir culpables y basarse en evidencias.</li>
+              <li class="fragment">Identificar la <strong>Causa Raíz Verdadera</strong> de la variación o del defecto.</li>
+              <li class="fragment">Priorizar los esfuerzos de mejora para no malgastar recursos.</li>
+            </ul>
+          </div>
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="image-rounded fragment" alt="Análisis de datos">
+        </div>
+        <aside class="notes">
+          [Min 5 - 12] Enfatizar que en Lean Six Sigma no se buscan brujas ni se culpa al operario. Si el operario se equivoca, es porque el proceso se lo permitió. "Culpamos al proceso, capacitamos a la persona".
+        </aside>
+      </section>
+
+      <!-- Slide 3: Principio de Pareto -->
+      <section>
+        <span class="phase-tag">Fase Analizar (A)</span>
+        <h3>El Principio de Pareto (80/20)</h3>
+        <p style="font-size: 0.72em; text-align: left;">
+          Wilfredo Pareto descubrió que en la mayoría de los fenómenos, el 80% de las consecuencias provienen del 20% de las causas. <strong>Separamos los pocos vitales de los muchos triviales.</strong>
+        </p>
+
+        <div class="tool-grid">
+          <div class="tool-card primary">
+            <h5><i class="fa-solid fa-chart-bar"></i> Aplicación Operativa</h5>
+            <p>Si una empresa tiene 10 tipos de quejas diferentes, es probable que solo 2 de esos tipos generen el 80% de los reclamos totales.</p>
+            <p><strong>Beneficio:</strong> Evita que el equipo Yellow Belt pierda semanas de trabajo intentando resolver problemas menores que no impactarán la métrica principal.</p>
+          </div>
+          <div class="tool-card secondary">
+            <h5><i class="fa-solid fa-bullseye"></i> Ejemplos Comunes</h5>
+            <ul>
+              <li>El 80% de las ventas provienen del 20% de los clientes.</li>
+              <li>El 80% de las paradas de máquina son causadas por el 20% de las piezas.</li>
+              <li>El 80% del tiempo de espera es provocado por el 20% de los cuellos de botella.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 12 - 25] Pregunta a la clase: Si tienen un mes para mejorar un departamento, ¿prefieren atacar 10 fallitas chiquitas o las 2 monstruosas que desangran la empresa? Pareto nos dice exactamente dónde apuntar el rayo láser de nuestros recursos.
+        </aside>
+      </section>
+
+      <!-- Slide 4: Diagrama de Ishikawa -->
+      <section>
+        <span class="phase-tag">Fase Analizar (A)</span>
+        <h3>Diagrama de Ishikawa (Espina de Pescado)</h3>
+        <p style="font-size: 0.72em; text-align: left;">
+          Herramienta visual para clasificar metódicamente todas las posibles causas de un problema en 6 grandes categorías operativas (Las 6M).
+        </p>
+
+        <div class="col-2" style="font-size: 0.65em;">
+          <ul style="line-height: 1.5; text-align: left;">
+            <li class="fragment"><strong>Mano de obra:</strong> Falta de capacitación, fatiga, desmotivación.</li>
+            <li class="fragment"><strong>Máquina:</strong> Equipos descalibrados, computadoras lentas.</li>
+            <li class="fragment"><strong>Material:</strong> Insumos de mala calidad, formularios confusos.</li>
+            <li class="fragment"><strong>Método:</strong> Procedimientos no estandarizados, exceso de burocracia.</li>
+            <li class="fragment"><strong>Medición:</strong> Sensores dañados, indicadores equivocados.</li>
+            <li class="fragment"><strong>Medio Ambiente:</strong> Ruido excesivo, mala iluminación, calor extremo.</li>
+          </ul>
+          <div class="highlight-box fragment" style="text-align: center;">
+            <i class="fa-solid fa-fish-fins" style="font-size: 3em; color: var(--uned-blue);"></i><br><br>
+            El problema se coloca en la "cabeza" del pescado, y el equipo genera una lluvia de ideas en las "espinas" para mapear todo el ecosistema de fallas.
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 25 - 40] Explicar que un Ishikawa nunca se hace solo en una oficina. Se hace reuniendo al operario, al mecánico, al asistente y al supervisor. Cada quien tiene un pedazo de la verdad en su "M".
+        </aside>
+      </section>
+
+      <!-- Slide 5: Los 5 Porqués -->
+      <section>
+        <span class="phase-tag">Fase Analizar (A)</span>
+        <h3>La Táctica de los 5 Porqués</h3>
+        <p style="font-size: 0.72em; text-align: left;">
+          Una vez identificada una causa en el Ishikawa, preguntamos "Por qué" iterativamente hasta destruir el síntoma y encontrar la falla de raíz.
+        </p>
+
+        <div class="solution-box" style="margin-top: 15px; font-size: 0.65em;">
+          <strong>Problema Inicial:</strong> La máquina empacadora se detuvo.
+          <ul style="margin-top: 8px; list-style-type: none; padding-left: 0;">
+            <li class="fragment"><i class="fa-solid fa-arrow-turn-down"></i> <strong>1. ¿Por qué se detuvo?</strong> Porque saltó el fusible por sobrecarga.</li>
+            <li class="fragment"><i class="fa-solid fa-arrow-turn-down" style="margin-left: 20px;"></i> <strong>2. ¿Por qué hubo sobrecarga?</strong> Porque el motor principal se atascó.</li>
+            <li class="fragment"><i class="fa-solid fa-arrow-turn-down" style="margin-left: 40px;"></i> <strong>3. ¿Por qué se atascó?</strong> Porque el rodamiento no tenía lubricación.</li>
+            <li class="fragment"><i class="fa-solid fa-arrow-turn-down" style="margin-left: 60px;"></i> <strong>4. ¿Por qué no tenía lubricación?</strong> Porque la bomba de aceite falló.</li>
+            <li class="fragment"><i class="fa-solid fa-arrow-turn-down" style="margin-left: 80px;"></i> <strong>5. ¿Por qué falló la bomba?</strong> <span style="color: var(--accent-red); font-weight: bold;">Porque no hay un plan de mantenimiento preventivo y el filtro nunca se cambió (Causa Raíz Verdadera).</span></li>
+          </ul>
+        </div>
+        <aside class="notes">
+          [Min 40 - 50] Si solo aplicamos el Por qué 1, el operario cambia el fusible y a las 2 horas la máquina se vuelve a quemar. El Por qué 5 arregla el problema para siempre porque ataca el MÉTODO. (Dar Pausa Activa de 5 min al terminar).
+        </aside>
+      </section>
+
+      <!-- ==================== BLOQUE 2: FASE MEJORAR ==================== -->
+
+      <!-- Slide 6: Introducción Fase Mejorar -->
+      <section>
+        <span class="phase-tag">Cuarta Fase DMAIC</span>
+        <h3>Fase Mejorar (I): Implementando Soluciones</h3>
+        <div class="col-2">
+          <div class="col-2-text">
+            <p><strong>Propósito central:</strong> Desarrollar, probar e implementar soluciones directas que ataquen la Causa Raíz validada en la fase anterior.</p>
+            <p><strong>Herramientas Lean clave:</strong></p>
+            <ul style="line-height: 1.6;">
+              <li class="fragment">Metodología 5S.</li>
+              <li class="fragment">Poka-Yoke (A prueba de errores).</li>
+              <li class="fragment">Control Visual / Kanban.</li>
+            </ul>
+            <div class="highlight-box fragment" style="margin-top: 10px;">
+              <strong>Principio Lean:</strong> "Creatividad antes que capital". Buscamos soluciones operativas de bajo costo antes de proponer comprar un software de un millón de dólares.
+            </div>
+          </div>
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="image-rounded fragment" alt="Mejora y Soluciones">
+        </div>
+        <aside class="notes">
+          [Min 55 - 60] Reinicio post-descanso. Subrayar que un Yellow Belt es valioso porque arregla procesos con ingenio, orden y rediseño, no solo pidiendo presupuesto para parches tecnológicos.
+        </aside>
+      </section>
+
+      <!-- Slide 7: Metodología 5S -->
+      <section>
+        <span class="phase-tag">Fase Mejorar (I)</span>
+        <h3>Metodología 5S: Organización Visual</h3>
+        <p style="font-size: 0.72em; text-align: left;">
+          No es un programa de limpieza; es un sistema fundacional de disciplina visual donde "la anomalía salta a la vista" a 10 metros de distancia.
+        </p>
+
+        <div class="five-s-grid fragment">
+          <div class="s-card">
+            <h6>1. SEIRI</h6>
+            <strong>Clasificar</strong>
+            <p>Separar lo necesario de lo inútil y tirar lo que no sirve.</p>
+          </div>
+          <div class="s-card">
+            <h6>2. SEITON</h6>
+            <strong>Ordenar</strong>
+            <p>Un lugar para cada cosa y cada cosa en su lugar.</p>
+          </div>
+          <div class="s-card">
+            <h6>3. SEISO</h6>
+            <strong>Limpiar</strong>
+            <p>La limpieza como forma de inspección de averías.</p>
+          </div>
+          <div class="s-card">
+            <h6>4. SEIKETSU</h6>
+            <strong>Estandarizar</strong>
+            <p>Crear reglas visuales y colores para mantener las primeras 3 S.</p>
+          </div>
+          <div class="s-card">
+            <h6>5. SHITSUKE</h6>
+            <strong>Disciplina</strong>
+            <p>Crear el hábito y realizar auditorías recurrentes.</p>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 60 - 70] Poner ejemplo: Los tableros de sombras de herramientas (donde se dibuja la silueta del martillo). Si falta el martillo, cualquier supervisor lo nota en un segundo. Eso es Seiton y Seiketsu.
+        </aside>
+      </section>
+
+      <!-- Slide 8: Poka-Yoke -->
+      <section>
+        <span class="phase-tag">Fase Mejorar (I)</span>
+        <h3>Poka-Yoke: A Prueba de Errores</h3>
+        <p style="font-size: 0.72em; text-align: left;">
+          Diseño de dispositivos físicos o sistémicos que previenen que el operario cometa un error, o que detectan el error antes de que pase al cliente.
+        </p>
+
+        <div class="tool-grid">
+          <div class="tool-card primary">
+            <h5><i class="fa-solid fa-ban"></i> Ejemplos en la Vida Diaria</h5>
+            <ul>
+              <li>El conector USB, HDMI o enchufe de 3 clavijas (solo entra de una forma).</li>
+              <li>El auto que no enciende si no pisas el freno.</li>
+              <li>El microondas que se apaga al abrir la puerta.</li>
+            </ul>
+          </div>
+          <div class="tool-card secondary">
+            <h5><i class="fa-solid fa-industry"></i> Ejemplos Operativos</h5>
+            <ul>
+              <li>Un formulario web que no te deja hacer click en "Enviar" si el correo no tiene un "@".</li>
+              <li>Piezas de ensamblaje con pines asimétricos para que no se pongan al revés.</li>
+            </ul>
+          </div>
+        </div>
+        <p class="fragment" style="font-size: 0.65em; color: var(--uned-blue); font-weight: 700; text-align: left; margin-top: 15px;">
+          El Poka-Yoke asume que el humano siempre se distraerá eventualmente.
+        </p>
+        <aside class="notes">
+          [Min 70 - 85] Shigeo Shingo inventó esto en Toyota. El operario Toyota olvidaba poner resortes en los interruptores. La solución no fue regañarlo, fue darle un platito con 2 resortes exactos antes de empezar. Si sobraba uno, sabía que se equivocó.
+        </aside>
+      </section>
+
+      <!-- Slide 9: Control Visual -->
+      <section>
+        <span class="phase-tag">Fase Mejorar (I)</span>
+        <h3>Gestión y Control Visual</h3>
+        <p style="font-size: 0.72em; text-align: left;">
+          Comunicación gráfica de estándares y estados operativos para que cualquiera entienda cómo va el proceso en menos de 5 segundos.
+        </p>
+        
+        <div class="col-2">
+          <ul style="font-size: 0.65em; line-height: 1.6; text-align: left;">
+            <li class="fragment"><strong>Líneas de demarcación:</strong> Zonas rojas para desecho, amarillas para pasillos seguros.</li>
+            <li class="fragment"><strong>Semáforos Andon:</strong> Verde (Línea corriendo), Amarillo (Ayuda requerida), Rojo (Línea parada).</li>
+            <li class="fragment"><strong>Tableros Kanban:</strong> Sistema visual de tarjetas (Por Hacer $\rightarrow$ En Proceso $\rightarrow$ Terminado) para evitar sobreproducción.</li>
+          </ul>
+          <div class="highlight-box fragment">
+            <strong>El test de los 5 segundos:</strong> Si un visitante entra a la planta o al departamento y no puede saber en 5 segundos si están atrasados o adelantados, no hay control visual.
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 85 - 95] Ejemplo: El medidor de temperatura del carro. No te da un número complejo, te da una aguja en la zona verde o roja. Eso es control visual efectivo.
+        </aside>
+      </section>
+
+      <!-- ==================== BLOQUE 3: TALLER Y CIERRE ==================== -->
+
+      <!-- Slide 10: Taller Práctico Caso N.º 3 -->
+      <section>
+        <h3><i class="fa-solid fa-people-group" style="color: var(--uned-blue);"></i> Taller Aplicado: Caso de Estudio N.º 3</h3>
+        <div class="col-2">
+          <div class="col-2-text">
+            <p><strong>Dinámica en Subgrupos (Google Classroom):</strong></p>
+            <p style="font-size: 0.9em;">Continuaremos con las empresas asignadas desde la Semana 1.</p>
+            <ol style="line-height: 1.45; margin-top: 8px;">
+              <li class="fragment">Construir un diagrama de <strong>Ishikawa</strong> agrupando las causas posibles de su problema.</li>
+              <li class="fragment">Seleccionar la causa más crítica y aplicar la herramienta de <strong>Los 5 Porqués</strong> para hallar la causa raíz.</li>
+              <li class="fragment">Diseñar una propuesta de mejora basada en <strong>5S o Poka-Yoke</strong> que elimine la posibilidad de que el error vuelva a ocurrir.</li>
+            </ol>
+          </div>
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="image-rounded fragment" alt="Taller">
+        </div>
+        <aside class="notes">
+          [Min 95 - 110] Explicar a los estudiantes que deben usar la lógica y su experiencia para inferir cuáles podrían ser las causas raíz en el banco, la mueblería, el hospital, etc., y diseñar un mecanismo a prueba de errores.
+        </aside>
+      </section>
+
+      <!-- Slide 11: Cierre -->
+      <section>
+        <h2>Cierre de la Sesión</h2>
+        <p style="font-size: 0.75em; color: var(--uned-cyan); font-weight: 600;">
+          ¿Consultas sobre Pareto, Ishikawa, 5S o Poka-Yoke antes de pasar al taller colaborativo?
+        </p>
+
+        <div class="highlight-box" style="margin-top: 15px; text-align: left; font-size: 0.65em;">
+          <strong>Preparación para la Semana 4 (Cierre y Certificación):</strong>
+          <ul style="margin-top: 6px;">
+            <li><strong>Fase Control (C):</strong> Estandarización y Gráficos de Control.</li>
+            <li><strong>Taller Integrador</strong> y Examen Final Individual (50%).</li>
+          </ul>
+        </div>
+
+        <p style="margin-top: 25px; font-size: 0.52em; color: #718096;">
+          Universidad Estatal a Distancia · Escuela de Ciencias de la Administración · Cátedra de Producción
+        </p>
+        <aside class="notes">
+          [Min 110 - 120] Espacio para preguntas, motivación para completar el 3er entregable grupal y recordatorio del examen de certificación de la próxima semana.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Scripts Reveal.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'fade',
+      controls: true,
+      progress: true,
+      center: false,
+      width: 1280,
+      height: 720,
+      margin: 0.04,
+      minScale: 0.2,
+      maxScale: 2.0,
+      showNotes: false
+    });
+  </script>
+</body>
+</html>
