@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Semana 4: DMAIC - Fase Control, Estandarización y Cierre | UNED</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Reveal.js CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css" id="theme">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --uned-blue: #003366;
+      --uned-cyan: #008080;
+      --accent-red: #d9534f;
+      --accent-green: #2e7d32;
+      --accent-orange: #f39c12;
+      --light-bg: #f8f9fa;
+      --card-border: #e2e8f0;
+    }
+    .reveal {
+      font-family: 'Montserrat', sans-serif;
+      color: #2d3748;
+    }
+    .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--uned-blue);
+      text-transform: none;
+      font-weight: 800;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    .reveal h2 { font-size: 1.8em; }
+    .reveal h3 { font-size: 1.35em; }
+    .reveal h4 { font-size: 1.05em; }
+
+    .reveal .slides section {
+      box-sizing: border-box;
+      padding: 15px 30px !important;
+      max-height: 100%;
+      overflow-y: auto !important;
+    }
+    .reveal .slides section::-webkit-scrollbar { width: 5px; }
+    .reveal .slides section::-webkit-scrollbar-thumb { background: rgba(0, 51, 102, 0.25); border-radius: 4px; }
+
+    .hero-slide {
+      background: linear-gradient(rgba(0, 51, 102, 0.90), rgba(0, 128, 128, 0.90)), 
+                  url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+      color: white !important;
+      border-radius: 12px;
+      padding: 30px !important;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    }
+    .hero-slide h2, .hero-slide h4 { color: white; }
+
+    .col-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .col-2-text { text-align: left; font-size: 0.72em; line-height: 1.5; }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+      font-size: 0.68em;
+      text-align: left;
+    }
+    .tool-card {
+      background: var(--light-bg);
+      border-radius: 8px;
+      padding: 14px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+    }
+    .tool-card.primary { border-top: 4px solid var(--uned-blue); }
+    .tool-card.secondary { border-top: 4px solid var(--uned-cyan); }
+    .tool-card.warning { border-top: 4px solid var(--accent-orange); }
+    .tool-card.success { border-top: 4px solid var(--accent-green); }
+
+    .tool-card h5 { margin-top: 0; margin-bottom: 6px; font-size: 1.05em; display: flex; align-items: center; gap: 8px; }
+
+    .highlight-box {
+      background: #f0f4f8;
+      border-left: 4px solid var(--uned-blue);
+      padding: 12px 16px;
+      border-radius: 4px;
+      font-size: 0.72em;
+      text-align: left;
+      margin: 10px 0;
+    }
+    .solution-box {
+      background: #eef9f8;
+      border-left: 4px solid var(--accent-green);
+      padding: 12px 16px;
+      margin-top: 10px;
+      font-size: 0.72em;
+      text-align: left;
+      border-radius: 4px;
+    }
+    .warning-box {
+      background: #fff8e1;
+      border-left: 4px solid var(--accent-orange);
+      padding: 12px 16px;
+      margin-top: 10px;
+      font-size: 0.70em;
+      text-align: left;
+      border-radius: 4px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.48em;
+      color: white;
+      background: var(--uned-cyan);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .phase-tag {
+      font-size: 0.45em;
+      color: var(--uned-cyan);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .image-rounded {
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      max-height: 310px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    table.custom-table {
+      width: 100%;
+      font-size: 0.62em;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    table.custom-table th {
+      background: var(--uned-blue);
+      color: white;
+      padding: 8px 10px;
+      text-align: left;
+    }
+    table.custom-table td {
+      border: 1px solid #e2e8f0;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .spc-display {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 10px;
+      font-family: monospace;
+      font-size: 0.68em;
+      line-height: 1.6;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1: Portada -->
+      <section>
+        <div class="hero-slide">
+          <span class="badge">UNED · Escuela de Ciencias de la Administración</span>
+          <br><br>
+          <h2 style="font-size: 2.1em;">Lean Six Sigma</h2>
+          <h4 style="font-weight: 400; color: #b2ebf2;">Fase Control (C), Estandarización y Cierre de Proyecto</h4>
+          <hr style="border-color: rgba(255,255,255,0.25); margin: 20px 0;">
+          <p style="font-size: 0.8em; margin: 0;">
+            <i class="fa-solid fa-shield-halved"></i> <strong>Semana 4:</strong> Planes de Control, SPC, Gestión del Cambio y Certificación<br>
+            <i class="fa-solid fa-award"></i> Certificación White & Yellow Belt | Cátedra de Producción
+          </p>
+        </div>
+        <aside class="notes">
+          [Min 0 - 5]
+          Bienvenida a la sesión final de la certificación.
+          Hoy cerramos el ciclo DMAIC con la fase que diferencia a un proyecto exitoso de una iniciativa pasajera: la Fase de Control.
+          Repaso rápido de la agenda: Planes de Control, Estandarización/SOP, Control Estadístico de Procesos (SPC), Cierre formal y lineamientos del Examen de Certificación.
+        </aside>
+      </section>
+
+      <!-- Slide 2: El Dilema de la Sostenibilidad -->
+      <section>
+        <span class="phase-tag">Fase 5: Ciclo DMAIC</span>
+        <h3>Fase Control (C): Evitando el Efecto Rebote</h3>
+        <div class="col-2">
+          <div class="col-2-text">
+            <p><strong>El Desafío Operativo:</strong> Es relativamente fácil lograr mejoras bajo la supervisión directa del equipo de proyecto. Lo difícil es mantenerlas cuando el equipo se retira.</p>
+            <p><strong>Objetivos Centrales de la Fase:</strong></p>
+            <ul style="line-height: 1.5;">
+              <li class="fragment">Garantizar que el proceso no regrese a su condición caótica anterior (*Efecto Resorte* o Entropía).</li>
+              <li class="fragment">Documentar e institucionalizar las nuevas prácticas mediante <strong>Trabajo Estandarizado (SOPs)</strong>.</li>
+              <li class="fragment">Establecer mecanismos de monitoreo estadístico para detectar anomalías antes de que lleguen al cliente.</li>
+              <li class="fragment">Transferir la responsabilidad operativa al <strong>Dueño del Proceso (Process Owner)</strong>.</li>
+            </ul>
+          </div>
+          <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=700&q=80" class="image-rounded fragment" alt="Sostenibilidad y Control">
+        </div>
+        <aside class="notes">
+          [Min 5 - 15]
+          Explicar el concepto de entropía en las organizaciones: sin control ni estandarización, todo proceso tiende naturalmente al desorden previo.
+          Subrayar que el equipo Yellow Belt no opera el proceso a perpetuidad; su deber es crear el sistema para que los operadores y supervisores mantengan el estándar.
+        </aside>
+      </section>
+
+      <!-- Slide 3: El Plan de Control -->
+      <section>
+        <span class="phase-tag">Herramienta Clave: Control</span>
+        <h3>Estructura del Plan de Control</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 4px;">
+          Documento maestro que especifica cómo se supervisarán las variables críticas de entrada (X) y las salidas del proceso (Y):
+        </p>
+
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th style="width: 18%;">Parámetro / Variable</th>
+              <th style="width: 18%;">Especificación / Meta</th>
+              <th style="width: 20%;">Método y Frecuencia</th>
+              <th style="width: 18%;">Responsable</th>
+              <th style="width: 26%;">Plan de Reacción (Acción Correctiva)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="fragment">
+              <td><strong>Temperatura de termosellado (X)</strong></td>
+              <td>$185^\circ\text{C} \pm 5^\circ\text{C}$</td>
+              <td>Sensor digital en continuo; registro cada 2 horas.</td>
+              <td>Operario de línea</td>
+              <td>Detener alimentación, calibrar resistencia térmica y notificar a mantenimiento si persiste >10 min.</td>
+            </tr>
+            <tr class="fragment">
+              <td><strong>Hermeticidad del envase (Y)</strong></td>
+              <td>0 fugas en cámara de vacío (-0.4 bar por 30s)</td>
+              <td>Muestreo destructivo de 5 botellas por lote.</td>
+              <td>Inspector de calidad</td>
+              <td>Retener lote actual, segregar producto de los últimos 30 min y reajustar mordazas.</td>
+            </tr>
+            <tr class="fragment">
+              <td><strong>Tiempo de trámite municipal (Y)</strong></td>
+              <td>$\le 10$ días hábiles</td>
+              <td>Reporte automatizado en sistema ERP cada viernes.</td>
+              <td>Coordinador de ventanilla</td>
+              <td>Reasignar carga a analistas de respaldo si el WIP supera 50 expedientes en espera.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="solution-box fragment" style="margin-top: 8px;">
+          <strong>Regla de oro:</strong> Un Plan de Control sin <em>Plan de Reacción</em> específico es inútil. Cada alarma debe tener asignada una acción correctiva predeterminada y un responsable claro.
+        </div>
+        <aside class="notes">
+          [Min 15 - 30]
+          Revisar cada columna del Plan de Control. 
+          Enfatizar la diferencia entre monitorear las X (variables de entrada/proceso) y las Y (resultados). Si controlamos las X, la Y se cuida sola.
+        </aside>
+      </section>
+
+      <!-- Slide 4: Estandarización y SOPs -->
+      <section>
+        <span class="phase-tag">Herramienta Clave: Control</span>
+        <h3>Estandarización: Procedimientos Operativos (SOP)</h3>
+        <div class="col-2">
+          <div class="col-2-text">
+            <p><strong>"Donde no hay estándar, no puede haber mejora continua"</strong> (Taiichi Ohno).</p>
+            <p>Un SOP efectivo debe ser:</p>
+            <ul style="line-height: 1.5;">
+              <li class="fragment"><strong>Visual y Directo:</strong> Fotografías, diagramas y advertencias de seguridad en lugar de manuales extensos de texto.</li>
+              <li class="fragment"><strong>Accesible en el punto de uso:</strong> Ubicado físicamente en la estación de trabajo (gemba), no archivado en una carpeta de oficina.</li>
+              <li class="fragment"><strong>Base de Capacitación:</strong> El estándar oficial con el que se entrena y audita a cada nuevo colaborador.</li>
+            </ul>
+          </div>
+          <div class="tool-card primary fragment">
+            <h5><i class="fa-solid fa-list-check"></i> Ciclo SDCA vs. PDCA</h5>
+            <p style="font-size: 0.9em;">Antes de volver a mejorar (Plan-Do-Check-Act), debemos estabilizar:</p>
+            <ul style="font-size: 0.85em; margin-top: 6px;">
+              <li><strong>S (Standardize):</strong> Definir el método óptimo.</li>
+              <li><strong>D (Do):</strong> Ejecutar según el estándar.</li>
+              <li><strong>C (Check):</strong> Auditar el cumplimiento.</li>
+              <li><strong>A (Act):</strong> Corregir desviaciones.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 30 - 45]
+          Recordar la pregunta de la sesión anterior sobre qué era un SOP.
+          Vincularlo con el ciclo SDCA: la mejora es una escalera; el SOP es la cuña que evita que la rueda ruede hacia atrás.
+        </aside>
+      </section>
+
+      <!-- Slide 5: Control Estadístico de Procesos (SPC) -->
+      <section>
+        <span class="phase-tag">Fundamento Estadístico: Control</span>
+        <h3>Control Estadístico de Procesos (SPC)</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Desarrollado por Walter Shewhart en Bell Labs, el SPC distingue el "ruido natural" de un proceso de las "señales reales de falla".
+        </p>
+
+        <div class="tool-grid">
+          <div class="tool-card warning">
+            <h5><i class="fa-solid fa-shuffle"></i> Causas Comunes (Aleatorias)</h5>
+            <p>Inherentes al diseño del sistema. Provocan variabilidad predecible y estable en el tiempo:</p>
+            <ul>
+              <li>Ligeras vibraciones normales del piso.</li>
+              <li>Variaciones térmicas ambientales del día a día.</li>
+              <li>Tolerancias dimensionales de materia prima conforme.</li>
+            </ul>
+            <div class="highlight-box" style="margin-top: 6px; font-size: 0.85em;">
+              <strong>Acción:</strong> No intervenir el proceso puntualmente. Se reducen cambiando el sistema en una nueva fase Mejorar.
+            </div>
+          </div>
+          <div class="tool-card primary">
+            <h5><i class="fa-solid fa-bolt-lightning"></i> Causas Especiales (Asignables)</h5>
+            <p>Eventos externos o puntuales que desestabilizan el proceso, haciéndolo impredecible:</p>
+            <ul>
+              <li>Operario sin capacitación asignado a la línea.</li>
+              <li>Rotura de un componente mecánico o sensor.</li>
+              <li>Lote defectuoso de resina o tapas.</li>
+            </ul>
+            <div class="solution-box" style="margin-top: 6px; font-size: 0.85em;">
+              <strong>Acción:</strong> Investigar de inmediato, contener el lote y eliminar la causa raíz identificada.
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 45 - 60]
+          Concepto clave: El "sobreajuste" (tampering). Si un supervisor ajusta la máquina cada vez que ve una variación común, lo que hace es aumentar la variabilidad del proceso (Experimento del Embudo de Deming).
+        </aside>
+      </section>
+
+      <!-- Slide 6: Anatomía de un Gráfico de Control -->
+      <section>
+        <span class="phase-tag">Herramienta Clave: Control</span>
+        <h3>Anatomía de un Gráfico de Control</h3>
+        <div class="col-2">
+          <div class="spc-display">
+            <span style="color: var(--accent-red); font-weight: bold;">UCL = $\mu + 3\sigma$ (Límite Superior de Control)</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·<br>
+            <span style="color: var(--uned-cyan); font-weight: bold;">CL = $\mu$ (Línea Central / Promedio del Proceso)</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·<br>
+            <span style="color: var(--accent-red); font-weight: bold;">LCL = $\mu - 3\sigma$ (Límite Inferior de Control)</span>
+          </div>
+          <div class="col-2-text">
+            <p><strong>Elementos Básicos:</strong></p>
+            <ul style="line-height: 1.45;">
+              <li><strong>Línea Central (CL):</strong> Media histórica del desempeño del proceso.</li>
+              <li><strong>Límites de Control (UCL / LCL):</strong> Calculados matemáticamente a $\pm 3$ desviaciones estándar ($\pm 3\sigma$). Representan los límites naturales del proceso.</li>
+            </ul>
+            <div class="warning-box">
+              <strong>Distinción Crítica de Examen:</strong><br>
+              • <em>Límites de Control (UCL/LCL):</em> Calculados a partir de los datos. Reflejan la <strong>Voz del Proceso</strong>.<br>
+              • <em>Límites de Especificación (USL/LSL):</em> Definidos por el cliente o normativa. Reflejan la <strong>Voz del Cliente</strong>.
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 60 - 75]
+          Hacer hincapié en la diferencia entre Límites de Control y Límites de Especificación.
+          Un proceso puede estar en "control estadístico" (sin causas especiales) pero generar piezas no conformes porque sus límites de control están fuera de las especificaciones del cliente.
+        </aside>
+      </section>
+
+      <!-- Slide 7: Interpretación y Señales de Inestabilidad -->
+      <section>
+        <span class="phase-tag">Fase Control: Reglas SPC</span>
+        <h3>Criterios de Proceso Fuera de Control</h3>
+        <p style="font-size: 0.7em; text-align: left; margin-bottom: 6px;">
+          Un proceso está fuera de control estadístico cuando presenta cualquiera de los siguientes patrones (Reglas de Western Electric):
+        </p>
+
+        <div class="feature-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; font-size: 0.65em; text-align: left;">
+          <div class="tool-card primary">
+            <h5 style="color: var(--accent-red);"><i class="fa-solid fa-triangle-exclamation"></i> 1. Punto Fuera de Límites</h5>
+            <p>Un solo punto cae por encima del UCL o por debajo del LCL.</p>
+            <p style="color: #718096; font-size: 0.9em;">Evidencia inmediata de una causa especial severa (ej. rotura de herramienta).</p>
+          </div>
+          <div class="tool-card warning">
+            <h5 style="color: var(--accent-orange);"><i class="fa-solid fa-chart-line"></i> 2. Tendencia Continua</h5>
+            <p>Seis o siete puntos consecutivos con pendiente ascendente o descendente sostenida.</p>
+            <p style="color: #718096; font-size: 0.9em;">Indica desgaste progresivo (ej. herramienta gastándose, fatiga, acumulación de calor).</p>
+          </div>
+          <div class="tool-card secondary">
+            <h5 style="color: var(--uned-cyan);"><i class="fa-solid fa-arrows-split-up-and-left"></i> 3. Desplazamiento (Racha)</h5>
+            <p>Ocho o nueve puntos consecutivos situados del mismo lado de la línea central.</p>
+            <p style="color: #718096; font-size: 0.9em;">Indica un cambio de media en el proceso (ej. nuevo lote de materia prima, cambio de turno).</p>
+          </div>
+        </div>
+
+        <div class="highlight-box fragment" style="margin-top: 12px; font-size: 0.68em;">
+          <strong>Acción Operativa:</strong> Al detectar cualquiera de estos patrones, el operario debe activar inmediatamente el <em>Plan de Reacción</em> especificado en el Plan de Control.
+        </div>
+        <aside class="notes">
+          [Min 75 - 85]
+          Explicar la probabilidad matemática: Que 8 puntos caigan del mismo lado de la media por puro azar es como tirar una moneda y sacar 8 caras seguidas ($0.5^8 = 0.0039$). Algo cambió en el proceso; no es casualidad.
+        </aside>
+      </section>
+
+      <!-- Slide 8: Cierre del Proyecto y Transferencia -->
+      <section>
+        <span class="phase-tag">Gobernanza DMAIC</span>
+        <h3>Cierre Formal y Entrega del Proyecto</h3>
+        <div class="col-2">
+          <div class="col-2-text">
+            <p><strong>El Protocolo de Cierre:</strong> Un proyecto Lean Six Sigma no concluye hasta que se formaliza la entrega y se validan los beneficios tangibles.</p>
+            <ul style="line-height: 1.5;">
+              <li class="fragment"><strong>Validación de Ahorros:</strong> Acreditación con el departamento Financiero de los ahorros duros (<em>Hard Savings</em>: reducción de desperdicio real, horas extra eliminadas) y blandos (<em>Soft Savings</em>: capacidad liberada).</li>
+              <li class="fragment"><strong>Acta de Traspaso (Hand-off):</strong> Firma formal con el Dueño del Proceso, quien asume el Plan de Control y la auditoría de los SOPs.</li>
+              <li class="fragment"><strong>Documentación de Lecciones Aprendidas:</strong> Registro de fallos y aciertos para enriquecer la base de conocimiento organizacional.</li>
+            </ul>
+          </div>
+          <div class="tool-card success fragment">
+            <h5><i class="fa-solid fa-handshake"></i> Responsabilidades Finales</h5>
+            <p style="font-size: 0.9em;"><strong>Equipo Yellow Belt:</strong> Diseña, prueba, implementa, entrena y entrega el sistema de control.</p>
+            <p style="font-size: 0.9em; margin-top: 8px;"><strong>Dueño del Proceso (Owner):</strong> Ejecuta el Plan de Control, audita el SOP y reporta desviaciones a largo plazo.</p>
+          </div>
+        </div>
+        <aside class="notes">
+          [Min 85 - 95]
+          Enfatizar la importancia de la firma financiera. En Six Sigma, un ahorro solo es real si el contador o director financiero valida que se redujeron los costos o aumentó la facturación.
+        </aside>
+      </section>
+
+      <!-- Slide 9: Síntesis del Viaje DMAIC -->
+      <section>
+        <span class="phase-tag">Integración Global</span>
+        <h3>El Ciclo DMAIC Completo: Hoja de Ruta</h3>
+        <table class="custom-table" style="font-size: 0.58em;">
+          <thead>
+            <tr>
+              <th>Fase</th>
+              <th>Pregunta Clave</th>
+              <th>Herramientas Principales Utilizadas</th>
+              <th>Entregable Crítico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong style="color: var(--uned-blue);">D - Definir</strong></td>
+              <td>¿Cuál es el problema real y el alcance?</td>
+              <td>Project Charter, VOC a CTQ, Matriz SIPOC</td>
+              <td>Acta de Constitución aprobada</td>
+            </tr>
+            <tr>
+              <td><strong style="color: var(--uned-blue);">M - Medir</strong></td>
+              <td>¿Cómo cuantificamos el desempeño actual?</td>
+              <td>Plan de Recolección, Tipos de Datos, DPU, DPMO</td>
+              <td>Línea Base del proceso</td>
+            </tr>
+            <tr>
+              <td><strong style="color: var(--uned-blue);">A - Analizar</strong></td>
+              <td>¿Cuál es la causa raíz de la variabilidad?</td>
+              <td>Diagrama de Ishikawa (6M), 5 Porqués, Principio de Pareto</td>
+              <td>Causa Raíz validada con datos</td>
+            </tr>
+            <tr>
+              <td><strong style="color: var(--uned-blue);">I - Mejorar</strong></td>
+              <td>¿Cómo eliminamos la causa de forma sostenible?</td>
+              <td>Metodología 5S, Poka-Yoke, Control Visual, Rediseño</td>
+              <td>Solución piloto implementada</td>
+            </tr>
+            <tr>
+              <td><strong style="color: var(--uned-blue);">C - Controlar</strong></td>
+              <td>¿Cómo sostenemos la mejora en el tiempo?</td>
+              <td>Plan de Control, SOPs estandarizados, Gráficos SPC</td>
+              <td>Proceso estabilizado y transferido</td>
+            </tr>
+          </tbody>
+        </table>
+        <aside class="notes">
+          [Min 95 - 105]
+          Pausa para consolidar el aprendizaje transversal del curso. 
+          Repasar cómo cada herramienta responde a una pregunta concreta y alimenta a la siguiente fase sin saltos intuitivos.
+        </aside>
+      </section>
+
+      <!-- Slide 10: Evaluación y Certificación Final -->
+      <section>
+        <h2>Evaluación y Certificación Final</h2>
+        <div class="col-2">
+          <div class="col-2-text">
+            <p><strong>Criterios de Acreditación (White & Yellow Belt):</strong></p>
+            <ul style="line-height: 1.6;">
+              <li><strong>20% Asistencia y Participación Activa:</strong> Evaluada en las 4 sesiones sincrónicas.</li>
+              <li><strong>30% Informes Grupales de Casos:</strong> Portafolio integral de las Semanas 1 a 3.</li>
+              <li><strong>50% Examen Final de Certificación:</strong> Prueba individual teórico-práctica.</li>
+            </ul>
+            <div class="solution-box" style="margin-top: 10px;">
+              <strong>Requisito de Aprobación:</strong> Nota final ponderada igual o superior a <strong>80/100</strong> para la emisión de la credencial oficial Yellow Belt.
+            </div>
+          </div>
+          <div class="tool-card primary">
+            <h5><i class="fa-solid fa-graduation-cap"></i> Estructura del Examen</h5>
+            <ul style="font-size: 0.85em; line-height: 1.5;">
+              <li>Conceptos fundamentales Lean y 8 Mudas.</li>
+              <li>Estructuración de problemas y métricas DMAIC (SIPOC, SMART, DPMO).</li>
+              <li>Análisis de causas (Ishikawa, Pareto, 5 Porqués).</li>
+              <li>Soluciones Lean y Control (5S, Poka-Yoke, SPC y Planes de Control).</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.52em; color: #718096;">
+          Universidad Estatal a Distancia · Escuela de Ciencias de la Administración · Cátedra de Producción
+        </p>
+        <aside class="notes">
+          [Min 105 - 120]
+          Aclarar dudas sobre la entrega del portafolio grupal y dar las instrucciones de acceso a la plataforma para el examen final individual. 
+          Agradecer el compromiso y felicitar a la generación por completar el programa de certificación.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Reveal.js CDN Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      transition: 'fade',
+      controls: true,
+      progress: true,
+      center: false,
+      width: 1280,
+      height: 720,
+      margin: 0.04,
+      minScale: 0.2,
+      maxScale: 2.0,
+      showNotes: false
+    });
+  </script>
+</body>
+</html>
